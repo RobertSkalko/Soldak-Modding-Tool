@@ -10,7 +10,7 @@ namespace SoldakModdingTool
         public string ModdedName;
         public Modifiers Modifier;
         public string Name;
-        public Dictionary<string, string> Dict = new Dictionary<string, string>();
+        public Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>();
         public string CreateOverrideName => "Mod" + Name;
 
         public SoldakObject(string text)
@@ -61,20 +61,69 @@ namespace SoldakModdingTool
             }
         }
 
+        private string TrimWhiteSpaceAtStart(string s)
+        {
+            string final = s;
+            for (var i = 0; i < s.Length; i++) {
+                char c = s[i];
+                if (char.IsWhiteSpace(c)) {
+                    final = final.Substring(1);
+                }
+                else {
+                    return final;
+                }
+            }
+            return final;
+        }
+
+        private string TrimWhiteSpaceAtEnd(string s)
+        {
+            string final = s;
+            for (var i = s.Length - 1; i > -1; i--) {
+                char c = s[i];
+                if (char.IsWhiteSpace(c)) {
+                    final = final.Substring(0, final.Length - 1);
+                }
+                else {
+                    return final;
+                }
+            }
+            return final;
+        }
+
+        private string TrimWhiteSpaceAtBothEnds(string s)
+        {
+            return TrimWhiteSpaceAtEnd(TrimWhiteSpaceAtStart(s));
+        }
+
         private void SetupDBInfo(string txt)
         {
             foreach (string s in RemoveEmptyStrings(txt.Split('\n'))) {
-                List<string> data = RemoveEmptyStrings(s.Split());
-
                 if (string.IsNullOrWhiteSpace(s)) {
                     continue;
                 }
+                string trimmed = TrimWhiteSpaceAtBothEnds(s);
 
-                if (data.Count == 2) {
-                    Dict.Add(data[0], data[1]);
+                int SplitIndex = trimmed.IndexOf(c => char.IsWhiteSpace(c));
+
+                string first = TrimWhiteSpaceAtBothEnds(trimmed.Substring(0, SplitIndex));
+                string second = TrimWhiteSpaceAtBothEnds(trimmed.Substring(SplitIndex));
+
+                List<string> KeyAndValue = new List<string>() { first, second };
+
+                if (KeyAndValue.Count == 2) {
+                    var value = new List<string>() { KeyAndValue[1] };
+                    var key = KeyAndValue[0];
+                    if (!Dict.ContainsKey(key)) {
+                        Dict.Add(key, value);
+                    }
+                    else {
+                        Dict[key].AddRange(value);
+                    }
                 }
                 else {
                     Debug.LogError("Data length isn't 2, there must be an entry and a value!");
+                    KeyAndValue.ForEach(x => Debug.Log(x));
                 }
             }
         }
