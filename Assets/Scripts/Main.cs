@@ -9,15 +9,21 @@ namespace SoldakModdingTool
 {
     public class Main : MonoBehaviour
     {
+        public static List<ToolButton> Buttons = new List<ToolButton>()
+        {
+            new ToolSpellsUseWeaponDmg(),
+            new ToolValidityChecker(),
+        };
+
         public void Start()
         {
-            Debug.Log("Starting");
+            Debug.Log("Starting Program");
 
             string path = Application.persistentDataPath + "/FilesToEdit";
 
-            foreach (string filetxt in GetAllFileTxtInFolder(path)) {
-                GetObjectsFromDBRFile(filetxt);
-            }
+            // foreach (string filetxt in GetAllFileTxtInFolder(path)) {
+            //    GetObjectsFromDBRFile(filetxt);
+            // }
         }
 
         public static void WriteChangedFiles(string path, List<string> files)
