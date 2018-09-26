@@ -61,13 +61,15 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\InputButtons.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
-    <Compile Include="Assets\Scripts\Save.cs" />
-    <Compile Include="Assets\Scripts\Saving.cs" />
+    <Compile Include="Assets\Scripts\Saving\FileToEditPathSaving.cs" />
+    <Compile Include="Assets\Scripts\Saving\GamePathSaving.cs" />
+    <Compile Include="Assets\Scripts\Saving\Save.cs" />
+    <Compile Include="Assets\Scripts\Saving\Saving.cs" />
     <Compile Include="Assets\Scripts\SoldakObject.cs" />
     <Compile Include="Assets\Scripts\ToolButton.cs" />
     <Compile Include="Assets\Scripts\ToolButtonsMono.cs" />
-    <Compile Include="Assets\Scripts\ToolSpellsUseWeaponDmg.cs" />
-    <Compile Include="Assets\Scripts\ToolValidityChecker.cs" />
+    <Compile Include="Assets\Scripts\Tools\ToolSpellsUseWeaponDmg.cs" />
+    <Compile Include="Assets\Scripts\Tools\ToolValidityChecker.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/User/Documents/Soldak Modding Tool/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

@@ -11,7 +11,13 @@ namespace SoldakModdingTool
 
         public override void Action()
         {
-            throw new System.NotImplementedException();
+            var objects = Main.GetObjectsFromAllFilesInPath(Paths.FilesToEditPath);
+
+            foreach (var obj in objects) {
+                if (obj.Dict.ContainsKey("ProjMinDamage")) {
+                    Debug.Log(obj.Dict["ProjMinDamage"]);
+                }
+            }
         }
     }
 }

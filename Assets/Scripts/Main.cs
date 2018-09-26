@@ -7,6 +7,12 @@ using UnityEngine;
 
 namespace SoldakModdingTool
 {
+    public static class Paths
+    {
+        public static string FilesToEditPath = Application.persistentDataPath + "/FilesToEdit";
+        public static string OutputPath = Application.persistentDataPath + "/OutPut";
+    }
+
     public class Main : MonoBehaviour
     {
         public static List<ToolButton> Buttons = new List<ToolButton>()
@@ -19,8 +25,6 @@ namespace SoldakModdingTool
         {
             Debug.Log("Starting Program");
 
-            string path = Application.persistentDataPath + "/FilesToEdit";
-
             // foreach (string filetxt in GetAllFileTxtInFolder(path)) {
             //    GetObjectsFromDBRFile(filetxt);
             // }
@@ -31,6 +35,16 @@ namespace SoldakModdingTool
             foreach (string file in files) {
                 File.WriteAllText(path, file);
             }
+        }
+
+        public static List<SoldakObject> GetObjectsFromAllFilesInPath(string path)
+        {
+            List<SoldakObject> list = new List<SoldakObject>();
+
+            foreach (string file in GetAllFileTxtInFolder(path)) {
+                list.AddRange(GetObjectsFromDBRFile(file));
+            }
+            return list;
         }
 
         public static List<string> GetAllFileTxtInFolder(string path)
