@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Tools\ToolOverrideNameSetter.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolSpellsUseWeaponDmg.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolValidityChecker.cs" />
+    <Compile Include="Assets\Scripts\VType.cs" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />

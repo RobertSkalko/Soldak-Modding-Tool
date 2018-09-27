@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Ionic.Zip;
 using UnityEngine;
@@ -17,19 +18,22 @@ namespace SoldakModdingTool
 
     public class Main : MonoBehaviour
     {
-        public static List<ToolButton> Buttons = new List<ToolButton>()
+        public static List<ToolButton> Buttons => GetAllButtons();
+
+        private static List<ToolButton> GetAllButtons()
         {
-            new ToolSpellsUseWeaponDmg(),
-            new ToolOverrideNameSetter(),
-        };
+            List<Type> derivedTypes = VType.GetDerivedTypes(typeof(ToolButton), Assembly.GetExecutingAssembly());
+
+            List<ToolButton> buttons = new List<ToolButton>();
+
+            derivedTypes.ForEach(x => buttons.Add((ToolButton)Activator.CreateInstance(x)));
+
+            return buttons;
+        }
 
         public void Start()
         {
             Debug.Log("Starting Program");
-
-            // foreach (string filetxt in GetAllFileTxtInFolder(path)) {
-            //    GetObjectsFromDBRFile(filetxt);
-            // }
         }
 
         public static void SaveOutputToFile(string file)
