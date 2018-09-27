@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace SoldakModdingTool
-{
+{/*
     public class ToolValidityChecker : ToolButton
     {
         public override string Name { get => "Validity Checker"; }
@@ -13,4 +13,5 @@ namespace SoldakModdingTool
         {
         }
     }
+    */
 }

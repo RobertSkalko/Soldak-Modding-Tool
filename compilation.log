@@ -1,5 +1,5 @@
 ********************************************************************************
-*                   Thursday, September 27, 2018 5:29:05 PM                    *
+*                   Thursday, September 27, 2018 6:20:18 PM                    *
 ********************************************************************************
 CSharpCompilerWrapper.exe version: 4.0.4.230
 Unity version: 2018.2.6f1
@@ -13,9 +13,9 @@ Compiler: Microsoft C# 7.3 (2.8.0.62830)
 - Compilation ------------------------------------------------
 
 Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-b21b765409473f24fa0f76ffe68dfa97
+Arguments: -noconfig @Temp/UnityTempFile-eb4b8088e98694b43b54b23333516fc4
 Exit code: 0
-Elapsed time: 3.05 sec
+Elapsed time: 3.21 sec
 
 - Output (0 lines):
 
