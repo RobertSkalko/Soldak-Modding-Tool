@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SoldakModdingTool
@@ -11,9 +12,9 @@ namespace SoldakModdingTool
 
         protected override void Action()
         {
-            string file = Main.GetObjectsFromAllFilesInPath(Save.file.FilesToEditPath).GetDerivedObjectsOf("BaseTown").JoinIntoString();
+            string file = FileManager.GetObjectsFromAllFilesInPath(Save.file.FilesToEditPath).ToList().GetDerivedObjectsOf("BaseTown").JoinIntoString();
 
-            Main.SaveOutputToFile(file);
+            FileManager.SaveOutputToFile(file);
         }
     }
 }

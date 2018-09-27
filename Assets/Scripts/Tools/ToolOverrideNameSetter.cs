@@ -13,11 +13,10 @@ namespace SoldakModdingTool
         {
             var list = new List<string>();
 
-            foreach (var obj in Main.GetObjectsFromAllFilesInPath(Save.file.FilesToEditPath)) {
+            foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.file.FilesToEditPath)) {
                 list.Add(obj.GetTextRepresentation(obj.Dict, Save.file.ModName, Modifiers.overrides));
             }
-            Main.SaveOutputToFile(string.Join("\n", list.ToArray()));
-            // Debug.Log(string.Join("\n", list.ToArray()));
+            FileManager.SaveOutputToFile(string.Join("\n", list.ToArray()));
         }
     }
 }

@@ -16,7 +16,7 @@ namespace SoldakModdingTool
         {
             var list = new List<string>();
 
-            foreach (var obj in Main.GetObjectsFromAllFilesInPath(Save.file.FilesToEditPath)) {
+            foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.file.FilesToEditPath)) {
                 if (obj.Dict.ContainsKey("ProjMinDamage") && obj.Dict.ContainsKey("ProjMaxDamage") && float.Parse(obj.Dict["ProjMaxDamage"][0]) > 0) {
                     float AverageDmg = (float.Parse(obj.Dict["ProjMinDamage"][0]) + float.Parse(obj.Dict["ProjMaxDamage"][0])) / 2F;
 
@@ -48,7 +48,7 @@ namespace SoldakModdingTool
                 }
             }
 
-            Main.SaveOutputToFile(string.Join("\n", list.ToArray()));
+            FileManager.SaveOutputToFile(string.Join("\n", list.ToArray()));
             //Debug.Log(string.Join("\n", list.ToArray()));
         }
 

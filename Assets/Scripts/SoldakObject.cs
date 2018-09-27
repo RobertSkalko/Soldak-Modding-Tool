@@ -12,7 +12,7 @@ namespace SoldakModdingTool
         public string Name;
         public Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>();
 
-        public bool HasBase => Dict.ContainsKey("Base");
+        public bool HasBase => Dict.ContainsKey("Base") && Dict["Base"].Count > 0 && !string.IsNullOrEmpty(Dict["Base"][0]);
         public string GetBase => Dict["Base"][0];
 
         public string CreateOverrideName(string ModName)
@@ -22,7 +22,7 @@ namespace SoldakModdingTool
 
         public SoldakObject(string text)
         {
-            text = Main.RemoveComments(text);
+            //text = Main.RemoveComments(text);
 
             SetupNameInfo(text);
 
@@ -103,6 +103,7 @@ namespace SoldakModdingTool
             return TrimWhiteSpaceAtEnd(TrimWhiteSpaceAtStart(s));
         }
 
+        // this is probably performance issue
         private void SetupDBInfo(string txt)
         {
             foreach (string s in RemoveEmptyStrings(txt.Split('\n'))) {
@@ -143,19 +144,6 @@ namespace SoldakModdingTool
             txt = txt.Replace("}", "");
 
             return txt;
-        }
-
-        public string RemoveComments(string file)
-        {
-            List<string> lines = file.Split('\n').ToList();
-
-            lines.ForEach(x => x.Remove(file.IndexOf("//")));
-
-            string final = "";
-
-            lines.ForEach(x => final += x + "\n");
-
-            return final;
         }
 
         public string GetTextRepresentation(Dictionary<string, List<string>> OverridenValues, string modName, Modifiers modifier)

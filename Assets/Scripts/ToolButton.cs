@@ -16,6 +16,9 @@ namespace SoldakModdingTool
 
         public void DoAction()
         {
+            Stopwatch stop = new Stopwatch();
+            stop.Start();
+
             StoppedBecauseError = false;
 
             if (!Directory.Exists(Save.file.FilesToEditPath)) {
@@ -30,6 +33,10 @@ namespace SoldakModdingTool
                 Debug.Log("Please Enter ModName");
                 StoppedBecauseError = true;
             }
+
+            stop.Stop();
+            Debug.Log("Checking for Action errors took: " + stop.ElapsedMilliseconds + " Miliseconds or " + stop.ElapsedMilliseconds / 1000 + " Seconds");
+
             if (!StoppedBecauseError) {
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
