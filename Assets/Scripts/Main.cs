@@ -10,12 +10,6 @@ using UnityEngine;
 
 namespace SoldakModdingTool
 {
-    public static class Paths
-    {
-        //public static string FilesToEditPath = Application.persistentDataPath + "/FilesToEdit";
-        public static string OutputPath = Application.persistentDataPath + "/OutPut";
-    }
-
     public class Main : MonoBehaviour
     {
         public static List<ToolButton> Buttons => GetAllButtons();
@@ -107,9 +101,7 @@ namespace SoldakModdingTool
 
         public static List<SoldakObject> GetObjectsFromDBRFile(string file)
         {
-            //Debug.Log("file before removing comments: " + file);
             file = RemoveComments(file);
-            //Debug.Log("file after removing comments: " + file);
 
             var objects = new List<SoldakObject>();
 
