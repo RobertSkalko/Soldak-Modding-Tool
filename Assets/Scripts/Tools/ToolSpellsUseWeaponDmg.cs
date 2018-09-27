@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SoldakModdingTool
@@ -12,23 +13,47 @@ namespace SoldakModdingTool
 
         public override void Action()
         {
-            var objects = Main.GetObjectsFromAllFilesInPath(Paths.FilesToEditPath);
+            var list = new List<string>();
 
-            foreach (var obj in objects) {
-                if (obj.Name.Contains("Skill") && obj.Dict.ContainsKey("ProjMinDamage") && obj.Dict.ContainsKey("ProjMaxDamage")) {
-                    Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>
-                    {
-                    { "ProjMinDamage", new List<string>() { "0" } },
-                    { "ProjMaxDamage", new List<string>() { "0" } },
-                    { "DamageMultAll", new List<string>() { "0" } },
-                    { "ProjectileDamage", new List<string>() { "1" } },
-                    };
+            foreach (var obj in Main.GetObjectsFromAllFilesInPath(Paths.FilesToEditPath)) {
+                if (obj.Dict.ContainsKey("ProjMinDamage") && obj.Dict.ContainsKey("ProjMaxDamage") && float.Parse(obj.Dict["ProjMaxDamage"][0]) > 0) {
+                    float AverageDmg = (float.Parse(obj.Dict["ProjMinDamage"][0]) + float.Parse(obj.Dict["ProjMaxDamage"][0])) / 2F;
 
-                    Debug.Log(obj.GetTextRepresentation(Dict, Save.file.ModName, Modifiers.overrides));
-                }
-                else if (obj.Name.Contains("PerLevel") && obj.Dict.ContainsKey("ProjMinDamage") && obj.Dict.ContainsKey("ProjMaxDamage")) {
+                    if (!obj.Dict["Base"][0].Contains("PerLevel")) { // if its a skill (should be)
+                        float DmgMult = ConvertSpellDamageIntoWeaponDmgMultipliers(AverageDmg);
+
+                        Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>
+                        {
+                        { "ProjMinDamage", new List<string>() { "0" } },
+                        { "ProjMaxDamage", new List<string>() { "0" } },
+                        { "DamageMultAll", new List<string>() {  DmgMult.ToString() } },
+                        { "ProjectileDamage", new List<string>() { "1" } },
+                        };
+
+                        list.Add(obj.GetTextRepresentation(Dict, Save.file.ModName, Modifiers.overrides));
+                    }
+                    else if (obj.Dict["Base"][0].Contains("PerLevel")) { // if per level
+                        float DmgMult = GetPerLevelMult(AverageDmg);
+
+                        Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>
+                        {
+                        { "ProjMinDamage", new List<string>() { "0" } },
+                        { "ProjMaxDamage", new List<string>() { "0" } },
+                        { "DamageMultAll", new List<string>() {  DmgMult.ToString() } },
+                        };
+
+                        list.Add(obj.GetTextRepresentation(Dict, Save.file.ModName, Modifiers.overrides));
+                    }
                 }
             }
+            Debug.Log(string.Join("\n", list.ToArray()));
+        }
+
+        private float GetPerLevelMult(float AverageDmg)
+        {
+            float MultPerOneNumber = 0.01F;
+
+            return AverageDmg * MultPerOneNumber;
         }
 
         private float ConvertSpellDamageIntoWeaponDmgMultipliers(float AverageDmg)

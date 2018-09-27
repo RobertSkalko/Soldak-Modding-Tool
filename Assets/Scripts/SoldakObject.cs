@@ -175,11 +175,11 @@ namespace SoldakModdingTool
                     Debug.LogError("Value can't be empty!!");
                 }
                 else if (item.Value.Count == 1) {
-                    text += "\n" + item.Key + " " + item.Value[0];
+                    text += "\n\t" + item.Key + " " + item.Value[0];
                 }
                 else {
                     foreach (string s in item.Value) {
-                        text += "\n" + item.Key + " " + s;
+                        text += "\n\t" + item.Key + " " + s;
                     }
                 }
             }
