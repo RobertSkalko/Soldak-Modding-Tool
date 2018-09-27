@@ -12,6 +12,9 @@ namespace SoldakModdingTool
         public string Name;
         public Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>();
 
+        public bool HasBase => Dict.ContainsKey("Base");
+        public string GetBase => Dict["Base"][0];
+
         public string CreateOverrideName(string ModName)
         {
             return ModName + Name;
@@ -57,11 +60,11 @@ namespace SoldakModdingTool
                     Modifier = Modifiers.addsTo;
                 }
                 else {
-                    Debug.Log("Invalid modifier!");
+                    Debug.Log("Invalid modifier! " + modifier.ToString());
                 }
             }
             else {
-                Debug.Log("Invalid Name Lines!");
+                Debug.Log("Invalid Name Lines!" + string.Join(" ", nameinfo));
             }
         }
 

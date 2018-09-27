@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Extensions.cs" />
+    <Compile Include="Assets\Scripts\GetDerived.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\Monobehaviors\ConsoleOutput.cs" />
     <Compile Include="Assets\Scripts\Monobehaviors\InputButtons.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\Scripts\Saving\Saving.cs" />
     <Compile Include="Assets\Scripts\SoldakObject.cs" />
     <Compile Include="Assets\Scripts\ToolButton.cs" />
+    <Compile Include="Assets\Scripts\Tools\ToolGetAllDerived.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolOverrideNameSetter.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolSpellsUseWeaponDmg.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolValidityChecker.cs" />

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Ionic.Zip;
 using UnityEngine;
 
@@ -83,20 +84,13 @@ namespace SoldakModdingTool
 
         public static string RemoveComments(string file)
         {
-            List<string> lines = file.Split('\n').ToList();
+            Regex comments1 = new Regex(@"//.*?\n");
+            Regex comments2 = new Regex(@"/\*(.|\n)*?\*/");
 
-            for (var i = 0; i < lines.Count; i++) {
-                string s = lines[i];
-                if (s.Contains("//")) {
-                    lines[i] = s.Remove(s.IndexOf("//"));
-                }
-            }
+            string afterRemoval = comments1.Replace(file, "");
+            afterRemoval = comments2.Replace(afterRemoval, "");
 
-            string final = "";
-
-            lines.ForEach(x => final += x + "\n");
-
-            return final;
+            return afterRemoval;
         }
 
         public static List<SoldakObject> GetObjectsFromDBRFile(string file)
