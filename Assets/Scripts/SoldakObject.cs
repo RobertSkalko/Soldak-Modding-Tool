@@ -57,11 +57,11 @@ namespace SoldakModdingTool
                     Modifier = Modifiers.addsTo;
                 }
                 else {
-                    Debug.LogError("Invalid modifier!");
+                    Debug.Log("Invalid modifier!");
                 }
             }
             else {
-                Debug.LogError("Invalid Name Lines!");
+                Debug.Log("Invalid Name Lines!");
             }
         }
 
@@ -126,7 +126,7 @@ namespace SoldakModdingTool
                     }
                 }
                 else {
-                    Debug.LogError("Data length isn't 2, there must be an entry and a value!");
+                    Debug.Log("Data length isn't 2, there must be an entry and a value!");
                     KeyAndValue.ForEach(x => Debug.Log(x));
                 }
             }
@@ -172,7 +172,7 @@ namespace SoldakModdingTool
 
             foreach (var item in OverridenValues) {
                 if (item.Value.Count == 0) {
-                    Debug.LogError("Value can't be empty!!");
+                    Debug.Log("Value can't be empty!!");
                 }
                 else if (item.Value.Count == 1) {
                     text += "\n\t" + item.Key + " " + item.Value[0];

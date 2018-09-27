@@ -14,7 +14,7 @@ namespace SoldakModdingTool
             foreach (var button in Main.Buttons) {
                 GameObject obj = Instantiate(ButtonPrefab, this.transform);
 
-                obj.GetComponent<Button>().onClick.AddListener(() => button.Action());
+                obj.GetComponent<Button>().onClick.AddListener(() => button.DoAction());
 
                 obj.GetComponentInChildren<Text>().text = button.Name;
             }

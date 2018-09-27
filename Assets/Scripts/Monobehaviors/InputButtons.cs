@@ -20,5 +20,10 @@ namespace SoldakModdingTool
         {
             Save.file.ModName = s;
         }
+
+        public void SetOutputPath(string s)
+        {
+            Save.file.OutputPath = s;
+        }
     }
 }

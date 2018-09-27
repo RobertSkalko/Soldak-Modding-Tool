@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -11,11 +12,11 @@ namespace SoldakModdingTool
         public override string Name { get => "Spell Damage Into Weapon Damage"; }
         public override string Description { get => "Put your mod zip file in the specified folder and it will generate spell overrides that use weapon damage in proportion to how much spell dmg it had "; }
 
-        public override void Action()
+        protected override void Action()
         {
             var list = new List<string>();
 
-            foreach (var obj in Main.GetObjectsFromAllFilesInPath(Paths.FilesToEditPath)) {
+            foreach (var obj in Main.GetObjectsFromAllFilesInPath(Save.file.FilesToEditPath)) {
                 if (obj.Dict.ContainsKey("ProjMinDamage") && obj.Dict.ContainsKey("ProjMaxDamage") && float.Parse(obj.Dict["ProjMaxDamage"][0]) > 0) {
                     float AverageDmg = (float.Parse(obj.Dict["ProjMinDamage"][0]) + float.Parse(obj.Dict["ProjMaxDamage"][0])) / 2F;
 
@@ -46,7 +47,9 @@ namespace SoldakModdingTool
                     }
                 }
             }
-            Debug.Log(string.Join("\n", list.ToArray()));
+
+            Main.SaveOutputToFile(string.Join("\n", list.ToArray()));
+            //Debug.Log(string.Join("\n", list.ToArray()));
         }
 
         private float GetPerLevelMult(float AverageDmg)
