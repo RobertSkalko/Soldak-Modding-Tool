@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 namespace SoldakModdingTool
 {
-    public class GamePathSaving : MonoBehaviour
+    public class ModNameSaving : MonoBehaviour
     {
-        public string Saved => Save.file.GamePath;
+        public string Saved => Save.file.ModName;
 
         public bool Updated = false;
 

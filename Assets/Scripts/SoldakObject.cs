@@ -11,7 +11,11 @@ namespace SoldakModdingTool
         public Modifiers Modifier;
         public string Name;
         public Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>();
-        public string CreateOverrideName => "Mod" + Name;
+
+        public string CreateOverrideName(string ModName)
+        {
+            return ModName + Name;
+        }
 
         public SoldakObject(string text)
         {
@@ -151,13 +155,13 @@ namespace SoldakModdingTool
             return final;
         }
 
-        public string GetTextRepresentation()
+        public string GetTextRepresentation(Dictionary<string, List<string>> OverridenValues, string modName, Modifiers modifier)
         {
             string text = "";
 
             // Name portion
-            if (ModdedName.Length != 0 && Modifier != Modifiers.none) {
-                text += CreateOverrideName + " " + Modifier.ToString() + " " + Name;
+            if (modName.Length != 0 && modifier != Modifiers.none) {
+                text += CreateOverrideName(modName) + " " + modifier.ToString() + " " + Name;
             }
             else {
                 text += Name;
@@ -166,8 +170,18 @@ namespace SoldakModdingTool
 
             text += "\n{\n";
 
-            foreach (var item in Dict) {
-                text += "\n" + item.Key + " " + item.Value;
+            foreach (var item in OverridenValues) {
+                if (item.Value.Count == 0) {
+                    Debug.LogError("Value can't be empty!!");
+                }
+                else if (item.Value.Count == 1) {
+                    text += "\n" + item.Key + " " + item.Value[0];
+                }
+                else {
+                    foreach (string s in item.Value) {
+                        text += "\n" + item.Key + " " + s;
+                    }
+                }
             }
 
             text += "\n}\n";

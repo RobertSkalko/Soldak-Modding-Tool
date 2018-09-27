@@ -15,5 +15,10 @@ namespace SoldakModdingTool
         {
             Save.file.FilesToEditPath = s;
         }
+
+        public void SetModName(string s)
+        {
+            Save.file.ModName = s;
+        }
     }
 }

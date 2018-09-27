@@ -16,6 +16,7 @@ namespace SoldakModdingTool
 
         public string GamePath;
         public string FilesToEditPath;
+        public string ModName;
 
         private static JsonSerializerSettings serSettings = new JsonSerializerSettings()
         {

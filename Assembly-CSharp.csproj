@@ -60,15 +60,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Extensions.cs" />
-    <Compile Include="Assets\Scripts\InputButtons.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
+    <Compile Include="Assets\Scripts\Monobehaviors\InputButtons.cs" />
+    <Compile Include="Assets\Scripts\Monobehaviors\ToolButtonsMono.cs" />
     <Compile Include="Assets\Scripts\Saving\FileToEditPathSaving.cs" />
     <Compile Include="Assets\Scripts\Saving\GamePathSaving.cs" />
+    <Compile Include="Assets\Scripts\Saving\ModNameSaving.cs" />
     <Compile Include="Assets\Scripts\Saving\Save.cs" />
     <Compile Include="Assets\Scripts\Saving\Saving.cs" />
     <Compile Include="Assets\Scripts\SoldakObject.cs" />
     <Compile Include="Assets\Scripts\ToolButton.cs" />
-    <Compile Include="Assets\Scripts\ToolButtonsMono.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolSpellsUseWeaponDmg.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolValidityChecker.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

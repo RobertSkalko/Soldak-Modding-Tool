@@ -13,7 +13,7 @@ namespace SoldakModdingTool
 
         public void Update()
         {
-            if (Saved != null && !Updated) {
+            if (Saved != null && Saved.Length > 0 && !Updated) {
                 this.gameObject.GetComponentInChildren<Text>().text = Saved;
                 Updated = true;
             }
