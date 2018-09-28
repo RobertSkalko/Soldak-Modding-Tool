@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
 using Ionic.Zip;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -23,12 +24,8 @@ namespace SoldakModdingTool
                 return;
             }
             string filename = Save.file.OutputPath + "/" + DateTime.Now.ToFileTime() + ".txt";
-
-            var bytes = Encoding.ASCII.GetBytes(file);
-
-            var stream = File.Create(filename);
-            stream.Write(bytes, 0, bytes.Length);
-            stream.Close();
+            //File.GetAccessControl(filename);
+            File.WriteAllText(filename, file);
 
             Debug.Log("File saved to \"" + Save.file.OutputPath + "\"");
         }
@@ -88,8 +85,15 @@ namespace SoldakModdingTool
         private static ConcurrentBag<string> GetAllGDBFilesInsideZip(string file)
         {
             var list = new ConcurrentBag<string>();
+
+            var options = new ReadOptions
+            {
+                Encoding = Encoding.GetEncoding("UTF-8")
+            };
+
             if (file.EndsWith(".zip")) {
-                var entries = ZipFile.Read(file).AsParallel();
+                File.GetAccessControl(file);
+                var entries = ZipFile.Read(file, options);
                 foreach (var zippedFile in entries) {
                     if (zippedFile.FileName.EndsWith(".gdb")) {
                         var stream = new StreamReader(zippedFile.OpenReader());
@@ -99,6 +103,7 @@ namespace SoldakModdingTool
                     }
                 }
             }
+
             return list;
         }
 

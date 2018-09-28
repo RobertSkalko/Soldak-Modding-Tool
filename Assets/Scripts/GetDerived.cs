@@ -12,8 +12,6 @@ namespace SoldakModdingTool
     {
         public static List<SoldakObject> GetDerivedObjectsOf(this List<SoldakObject> objects, string baseType)
         {
-            //Debug.Log(objects.Any(x => x != null || x.HasBase && x.GetBase.Equals(baseType)));
-
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
