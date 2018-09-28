@@ -22,8 +22,6 @@ namespace SoldakModdingTool
 
         public SoldakObject(string text)
         {
-            //text = Main.RemoveComments(text);
-
             SetupNameInfo(text);
 
             text = RemoveBracketsAndAnythingBeforeThem(text);

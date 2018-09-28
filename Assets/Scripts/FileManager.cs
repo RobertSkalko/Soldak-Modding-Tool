@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Ionic.Zip;
 using UnityEngine;
@@ -32,7 +33,7 @@ namespace SoldakModdingTool
             Debug.Log("File saved to \"" + Save.file.OutputPath + "\"");
         }
 
-        public static void WriteChangedFiles(string path, List<string> files)
+        public static void WriteChangedFiles(string path, ConcurrentBag<string> files)
         {
             foreach (string file in files) {
                 File.WriteAllText(path, file);
@@ -48,31 +49,29 @@ namespace SoldakModdingTool
 
             var fileswithoutcomments = CommentRemover.RemoveCommentsFromList(files);
 
-            var splitobjects = SplitObjects(fileswithoutcomments);
+            var splitobjects = SplitObjectsFromFiles(fileswithoutcomments); // this takes half the time
 
-            var soldakobjects = GenerateSoldakObjects(splitobjects);
+            var soldakobjects = GenerateSoldakObjects(splitobjects); // also highly intensive
 
             stopwatch.Stop();
-            Debug.Log("Getting Objects Took: " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
+            Debug.Log("Getting files and generating objects took: " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
 
             return soldakobjects;
         }
 
-        private static ConcurrentBag<string> SplitObjects(ConcurrentBag<string> list)
+        private static ConcurrentBag<string> SplitObjectsFromFiles(ConcurrentBag<string> Files)
         {
-            var newlist = new ConcurrentBag<string>();
+            var SplitObjects = new ConcurrentBag<string>();
+            var bracket = "}";
+            var anytext = @"^\S";
 
-            Parallel.ForEach(list, (file) => {
-                string copy = file;
-                int end = copy.IndexOf('}');
+            Parallel.ForEach(Files, (file) => {
+                var objs = file.Split(new string[] { anytext, bracket }, StringSplitOptions.RemoveEmptyEntries);
 
-                while (end > -1) {
-                    newlist.Add(copy.Substring(0, end + 1));
-                    copy = copy.Substring(end + 1);
-                    end = copy.IndexOf('}');
-                }
+                SplitObjects.AddRange(objs.Where(x => !string.IsNullOrWhiteSpace(x)));
             });
-            return newlist;
+
+            return SplitObjects;
         }
 
         private static ConcurrentBag<SoldakObject> GenerateSoldakObjects(ConcurrentBag<string> list)
