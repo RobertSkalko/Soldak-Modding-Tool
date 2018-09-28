@@ -12,16 +12,17 @@ namespace SoldakModdingTool
     {
         public static List<SoldakObject> GetDerivedObjectsOf(this List<SoldakObject> objects, string baseType)
         {
+            //Debug.Log(objects.Any(x => x != null || x.HasBase && x.GetBase.Equals(baseType)));
+
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             bool ThereIsAnotherInheritanceLevel = true;
-            List<string> DerivedBaseTypes = new List<string>();
             var derivedObjects = new List<SoldakObject>();
+            List<string> Bases = new List<string>() { baseType };
 
             while (ThereIsAnotherInheritanceLevel) {
                 ThereIsAnotherInheritanceLevel = false;
-                DerivedBaseTypes = new List<string>();
 
                 for (int i = objects.Count - 1; i > -1; i--) {
                     var obj = objects[i];
@@ -29,11 +30,14 @@ namespace SoldakModdingTool
                     if (obj == null || !obj.HasBase) {
                         objects.RemoveAt(i);
                     }
-                    else if (obj.GetBase.Equals(baseType) || DerivedBaseTypes.Any(x => x.Equals(obj.GetBase))) {
+                    else if (Bases.Contains(obj.GetBase)) {
+                        derivedObjects.Add(obj);
                         objects.RemoveAt(i);
                         ThereIsAnotherInheritanceLevel = true;
-                        DerivedBaseTypes.Add(obj.GetBase);
-                        derivedObjects.Add(obj);
+
+                        if (!Bases.Contains(obj.Name)) {
+                            Bases.Add(obj.Name);
+                        }
                     }
                 }
             }
