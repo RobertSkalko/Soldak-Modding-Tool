@@ -14,6 +14,7 @@ namespace SoldakModdingTool
         private static string SaveDataPath = Application.persistentDataPath + "/SavedData/" + SaveFileName;
         private static string SaveDataPathWithoutFileName = Application.persistentDataPath + "/SavedData/";
 
+        public string InputCommand;
         public string OutputPath = Application.persistentDataPath + "/OutPut";
         public string GamePath;
         public string FilesToEditPath;

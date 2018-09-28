@@ -1,5 +1,5 @@
 ********************************************************************************
-*                    Friday, September 28, 2018 1:03:07 AM                     *
+*                    Friday, September 28, 2018 11:11:26 AM                    *
 ********************************************************************************
 CSharpCompilerWrapper.exe version: 4.0.4.230
 Unity version: 2018.2.6f1
@@ -13,81 +13,9 @@ Compiler: Microsoft C# 7.3 (2.8.0.62830)
 - Compilation ------------------------------------------------
 
 Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-7f8d07fd3888572449ce663ef8abd894
-Exit code: 1
-Elapsed time: 0.85 sec
-
-- Output (2 lines):
-0: Assets\Scripts\FileManager.cs(75,14): error CS1026: ) expected
-1: Assets\Scripts\FileManager.cs(75,14): error CS1002: ; expected
-
-- Errors (0 lines):
-
-********************************************************************************
-*                    Friday, September 28, 2018 1:03:39 AM                     *
-********************************************************************************
-CSharpCompilerWrapper.exe version: 4.0.4.230
-Unity version: 2018.2.6f1
-Platform: Windows
-Target assembly: Assembly-CSharp.dll
-Project directory: C:\Users\User\Documents\Soldak Modding Tool
-Target profile directory: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unityjit
-Unity Mono executable: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\bin\mono.exe
-Compiler: Microsoft C# 7.3 (2.8.0.62830)
-
-- Compilation ------------------------------------------------
-
-Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-489f0bb9daf1cac48aa2bbededaf16f6
-Exit code: 1
-Elapsed time: 2.53 sec
-
-- Output (1 line):
-0: Assets\Scripts\Tools\ToolGetAllDerived.cs(14,27): error CS1929: 'ConcurrentBag<SoldakObject>' does not contain a definition for 'GetDerivedObjectsOf' and the best extension method overload 'GetDerived.GetDerivedObjectsOf(List<SoldakObject>, string)' requires a receiver of type 'List<SoldakObject>'
-
-- Errors (0 lines):
-
-********************************************************************************
-*                    Friday, September 28, 2018 1:04:09 AM                     *
-********************************************************************************
-CSharpCompilerWrapper.exe version: 4.0.4.230
-Unity version: 2018.2.6f1
-Platform: Windows
-Target assembly: Assembly-CSharp.dll
-Project directory: C:\Users\User\Documents\Soldak Modding Tool
-Target profile directory: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unityjit
-Unity Mono executable: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\bin\mono.exe
-Compiler: Microsoft C# 7.3 (2.8.0.62830)
-
-- Compilation ------------------------------------------------
-
-Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-7d6ee5ceff917304780cad2662deac41
+Arguments: -noconfig @Temp/UnityTempFile-58bfacdc72f835947a44b7f844b689fe
 Exit code: 0
-Elapsed time: 3.13 sec
-
-- Output (0 lines):
-
-- Errors (0 lines):
-
-********************************************************************************
-*                    Friday, September 28, 2018 1:04:26 AM                     *
-********************************************************************************
-CSharpCompilerWrapper.exe version: 4.0.4.230
-Unity version: 2018.2.6f1
-Platform: Windows
-Target assembly: Assembly-CSharp.dll
-Project directory: C:\Users\User\Documents\Soldak Modding Tool
-Target profile directory: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unityjit
-Unity Mono executable: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\bin\mono.exe
-Compiler: Microsoft C# 7.3 (2.8.0.62830)
-
-- Compilation ------------------------------------------------
-
-Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-d6e121e4a82abb04dac5fd65bd21a8d9
-Exit code: 0
-Elapsed time: 3.04 sec
+Elapsed time: 3.00 sec
 
 - Output (0 lines):
 

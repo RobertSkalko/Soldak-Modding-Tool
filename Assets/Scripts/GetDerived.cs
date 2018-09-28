@@ -19,8 +19,6 @@ namespace SoldakModdingTool
             List<string> DerivedBaseTypes = new List<string>();
             var derivedObjects = new List<SoldakObject>();
 
-            //List<int> ObjectsToRemoveFromList = new List<int>();
-
             while (ThereIsAnotherInheritanceLevel) {
                 ThereIsAnotherInheritanceLevel = false;
                 DerivedBaseTypes = new List<string>();

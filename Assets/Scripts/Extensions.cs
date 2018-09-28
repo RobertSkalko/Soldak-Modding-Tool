@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -9,16 +13,17 @@ namespace SoldakModdingTool
 {
     public static class Extensions
     {
+        public static void AddRange<T>(this ConcurrentBag<T> @this, IEnumerable<T> toAdd)
+        {
+            foreach (var element in toAdd) {
+                @this.Add(element);
+            }
+        }
+
         public static List<string> ToStringList(this List<SoldakObject> objects)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
             var list = new List<string>();
             objects.ForEach(x => list.Add(x.GetTextRepresentation(x.Dict, Save.file.ModName, x.Modifier)));
-
-            stopwatch.Stop();
-            Debug.Log("Turning Objects into strings took: " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
 
             return list;
         }

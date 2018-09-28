@@ -12,7 +12,7 @@ namespace SoldakModdingTool
 
         protected override void Action()
         {
-            string file = FileManager.GetObjectsFromAllFilesInPath(Save.file.FilesToEditPath).ToList().GetDerivedObjectsOf("BaseTown").JoinIntoString();
+            string file = FileManager.GetObjectsFromAllFilesInPath(Save.file.GamePath, true).ToList().GetDerivedObjectsOf(Save.file.InputCommand).JoinIntoString();
 
             FileManager.SaveOutputToFile(file);
         }

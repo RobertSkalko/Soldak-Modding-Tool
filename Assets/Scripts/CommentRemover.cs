@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SoldakModdingTool
@@ -22,9 +23,10 @@ namespace SoldakModdingTool
         public static ConcurrentBag<string> RemoveCommentsFromList(ConcurrentBag<string> files)
         {
             ConcurrentBag<string> list = new ConcurrentBag<string>();
-            foreach (string s in files) {
+
+            Parallel.ForEach(files, (s) => {
                 list.Add(RemoveComments(s));
-            }
+            });
             return list;
         }
     }

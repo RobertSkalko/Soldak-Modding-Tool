@@ -66,11 +66,12 @@
     <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\Monobehaviors\ConsoleOutput.cs" />
     <Compile Include="Assets\Scripts\Monobehaviors\InputButtons.cs" />
-    <Compile Include="Assets\Scripts\Monobehaviors\OutputPathSaving.cs" />
+    <Compile Include="Assets\Scripts\Monobehaviors\Inputs\FileToEditPathSaving.cs" />
+    <Compile Include="Assets\Scripts\Monobehaviors\Inputs\GamePathSaving.cs" />
+    <Compile Include="Assets\Scripts\Monobehaviors\Inputs\InputCommandSaving.cs" />
+    <Compile Include="Assets\Scripts\Monobehaviors\Inputs\ModNameSaving.cs" />
+    <Compile Include="Assets\Scripts\Monobehaviors\Inputs\OutputPathSaving.cs" />
     <Compile Include="Assets\Scripts\Monobehaviors\ToolButtonsMono.cs" />
-    <Compile Include="Assets\Scripts\Saving\FileToEditPathSaving.cs" />
-    <Compile Include="Assets\Scripts\Saving\GamePathSaving.cs" />
-    <Compile Include="Assets\Scripts\Saving\ModNameSaving.cs" />
     <Compile Include="Assets\Scripts\Saving\Save.cs" />
     <Compile Include="Assets\Scripts\Saving\Saving.cs" />
     <Compile Include="Assets\Scripts\SoldakObject.cs" />

@@ -39,12 +39,12 @@ namespace SoldakModdingTool
             }
         }
 
-        public static ConcurrentBag<SoldakObject> GetObjectsFromAllFilesInPath(string path)
+        public static ConcurrentBag<SoldakObject> GetObjectsFromAllFilesInPath(string path, bool OnlyVanillaAssets = false)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            var files = GetAllGDBFileTxtInFolder(path);
+            var files = GetAllGDBFilesInFolder(path, OnlyVanillaAssets);
 
             var fileswithoutcomments = CommentRemover.RemoveCommentsFromList(files);
 
@@ -62,13 +62,14 @@ namespace SoldakModdingTool
         {
             var newlist = new ConcurrentBag<string>();
 
-            Parallel.ForEach(list, (copy) => {
-                for (var i = 0; i < list.Count; i++) {
-                    while (copy.Contains("}")) {
-                        int end = copy.IndexOf('}');
-                        newlist.Add(copy.Substring(0, end + 1));
-                        copy = copy.Substring(end + 1);
-                    }
+            Parallel.ForEach(list, (file) => {
+                string copy = file;
+                int end = copy.IndexOf('}');
+
+                while (end > -1) {
+                    newlist.Add(copy.Substring(0, end + 1));
+                    copy = copy.Substring(end + 1);
+                    end = copy.IndexOf('}');
                 }
             });
             return newlist;
@@ -85,20 +86,38 @@ namespace SoldakModdingTool
             return newlist;
         }
 
-        public static ConcurrentBag<string> GetAllGDBFileTxtInFolder(string path)
+        private static ConcurrentBag<string> GetAllGDBFilesInsideZip(string file)
+        {
+            var list = new ConcurrentBag<string>();
+            if (file.EndsWith(".zip")) {
+                var entries = ZipFile.Read(file).AsParallel();
+                foreach (var zippedFile in entries) {
+                    if (zippedFile.FileName.EndsWith(".gdb")) {
+                        var stream = new StreamReader(zippedFile.OpenReader());
+                        var fileText = stream.ReadToEnd();
+                        list.Add(fileText);
+                        stream.Close();
+                    }
+                }
+            }
+            return list;
+        }
+
+        public static ConcurrentBag<string> GetAllGDBFilesInFolder(string path, bool OnlyVanillaAssets = false)
         {
             ConcurrentBag<string> filetxts = new ConcurrentBag<string>();
 
-            Parallel.ForEach(Directory.GetFiles(path, "*", SearchOption.AllDirectories), (file) => {
-                if (file.EndsWith(".zip") || file.EndsWith(".Zip")) {
-                    foreach (var zippedFile in ZipFile.Read(file).Entries) {
-                        if (zippedFile.FileName.EndsWith(".gdb")) {
-                            filetxts.Add(new StreamReader(zippedFile.OpenReader()).ReadToEnd());
-                        }
+            Parallel.ForEach(Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories), (file) => {
+                if (OnlyVanillaAssets) {
+                    if (file.Contains("assets")) {
+                        filetxts.AddRange(GetAllGDBFilesInsideZip(file));
                     }
                 }
-                else if (file.EndsWith(".gdb")) {
-                    filetxts.Add(File.ReadAllText(file));
+                else {
+                    filetxts.AddRange(GetAllGDBFilesInsideZip(file));
+                    if (file.EndsWith(".gdb")) {
+                        filetxts.Add(File.ReadAllText(file));
+                    }
                 }
             });
 
