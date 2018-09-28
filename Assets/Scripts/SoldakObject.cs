@@ -66,39 +66,9 @@ namespace SoldakModdingTool
             }
         }
 
-        private string TrimWhiteSpaceAtStart(string s)
-        {
-            string final = s;
-            for (var i = 0; i < s.Length; i++) {
-                char c = s[i];
-                if (char.IsWhiteSpace(c)) {
-                    final = final.Substring(1);
-                }
-                else {
-                    return final;
-                }
-            }
-            return final;
-        }
-
-        private string TrimWhiteSpaceAtEnd(string s)
-        {
-            string final = s;
-            for (var i = s.Length - 1; i > -1; i--) {
-                char c = s[i];
-                if (char.IsWhiteSpace(c)) {
-                    final = final.Substring(0, final.Length - 1);
-                }
-                else {
-                    return final;
-                }
-            }
-            return final;
-        }
-
         private string TrimWhiteSpaceAtBothEnds(string s)
         {
-            return TrimWhiteSpaceAtEnd(TrimWhiteSpaceAtStart(s));
+            return s.TrimEnd().TrimStart();
         }
 
         // this is probably performance issue

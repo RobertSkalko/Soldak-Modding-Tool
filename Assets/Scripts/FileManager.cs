@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using Ionic.Zip;
 using UnityEngine;
+using UnityEngine.Profiling;
 using Debug = UnityEngine.Debug;
 
 namespace SoldakModdingTool
@@ -42,13 +43,22 @@ namespace SoldakModdingTool
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
+            Profiler.BeginSample("GetAllGDBFilesInFolder");
+
             var files = GetAllGDBFilesInFolder(path, OnlyVanillaAssets);
+            Profiler.EndSample();
+            Profiler.BeginSample("RemoveComments");
 
             var fileswithoutcomments = CommentRemover.RemoveCommentsFromList(files);
+            Profiler.EndSample();
+            Profiler.BeginSample("SplitObjects");
 
             var splitobjects = SplitObjectsFromFiles(fileswithoutcomments); // this takes half the time
+            Profiler.EndSample();
+            Profiler.BeginSample("GenerateSoldakObjects");
 
             var soldakobjects = GenerateSoldakObjects(splitobjects); // also highly intensive
+            Profiler.EndSample();
 
             stopwatch.Stop();
             Debug.Log("Getting files and generating objects took: " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
@@ -92,7 +102,7 @@ namespace SoldakModdingTool
             };
 
             if (file.EndsWith(".zip")) {
-                File.GetAccessControl(file);
+                // File.GetAccessControl(file);
                 var entries = ZipFile.Read(file, options);
                 foreach (var zippedFile in entries) {
                     if (zippedFile.FileName.EndsWith(".gdb")) {
