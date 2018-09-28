@@ -14,7 +14,7 @@ namespace SoldakModdingTool
             Regex comments1 = new Regex(@"//.*?\n");
             Regex comments2 = new Regex(@"/\*(.|\n)*?\*/");
 
-            string afterRemoval = comments1.Replace(file, "");
+            string afterRemoval = comments1.Replace(file, "\n");
             afterRemoval = comments2.Replace(afterRemoval, "");
 
             return afterRemoval;
