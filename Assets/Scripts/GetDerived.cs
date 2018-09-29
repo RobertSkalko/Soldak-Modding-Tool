@@ -32,9 +32,7 @@ namespace SoldakModdingTool
                 ThereIsAnotherInheritanceLevel = false;
 
                 foreach (var obj in objects) {
-                    if (Bases.Contains(obj.GetBase) && ObjectNamesAdded.Add(obj.Name)) {
-                        Bases.Add(obj.Name);
-                        derivedObjects.Add(obj);
+                    if (Bases.Contains(obj.GetBase) && ObjectNamesAdded.Add(obj.Name) && Bases.Add(obj.Name) && derivedObjects.Add(obj)) {
                         ThereIsAnotherInheritanceLevel = true;
                     }
                 }
