@@ -42,7 +42,10 @@ namespace SoldakModdingTool
                 stopwatch.Start();
                 Action();
                 stopwatch.Stop();
-                Debug.Log("Action Took: " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
+
+                AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>("TaskComplete"), new Vector3());
+
+                Debug.Log("Everything Took: " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
             }
         }
 
