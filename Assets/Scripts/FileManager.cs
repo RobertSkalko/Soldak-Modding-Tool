@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Ionic.Zip;
@@ -85,17 +86,6 @@ namespace SoldakModdingTool
             return SplitObjects;
         }
 
-        private static Tuple<SoldakObject, int> GetMatching(List<SoldakObject> objects, SoldakObject match)
-        {
-            for (var i = 0; i < objects.Count; i++) {
-                var obj = objects[i];
-                if (obj.Name == match.Name && obj.Modifier == Modifiers.none && match.Modifier == Modifiers.none) {
-                    return new Tuple<SoldakObject, int>(obj, i);
-                }
-            }
-            return null;
-        }
-
         private static SoldakObject ReturnBasedOnFilePath(SoldakObject obj1, SoldakObject obj2)
         {
             return obj1.FilePath.CompareTo(obj2.FilePath) == 0 ? obj1 : obj2;
@@ -103,6 +93,9 @@ namespace SoldakModdingTool
 
         private static ConcurrentBag<SoldakObject> GenerateSoldakObjects(ConcurrentDictionary<string, string> Files, bool AllowDuplicates = false)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             var newList = new ConcurrentBag<SoldakObject>();
 
             Debug.Log(Files.Values.Count);
@@ -110,29 +103,34 @@ namespace SoldakModdingTool
             Parallel.ForEach(Files, (file) => {
                 newList.Add(new SoldakObject(file.Key, file.Value));
             });
-            /*
-            Parallel.ForEach(newList, (item) => {
-            });
-            */
 
             if (!AllowDuplicates) {
-                var nonDuplicateList = new List<SoldakObject>();
+                var nonDuplicateList = new HashSet<SoldakObject>();
 
                 foreach (var obj in newList) {
-                    var ObjIntTuple = GetMatching(nonDuplicateList, obj);
+                    // if (!nonDuplicateList.Contains(obj)) {
+                    nonDuplicateList.Add(obj);
+                    // }
+                    /*
+                     else {
+                         nonDuplicateList.
+                         nonDuplicateList.Remove(obj);
 
-                    if (ObjIntTuple != null) {
-                        nonDuplicateList[ObjIntTuple.Item2] = ReturnBasedOnFilePath(ObjIntTuple.Item1, obj);
-                    }
-                    else {
-                        nonDuplicateList.Add(obj);
-                    }
+                         nonDuplicateList.Add(ReturnBasedOnFilePath(obj));
+                     }
+                     */
                 }
                 Debug.Log(nonDuplicateList.Count);
+
+                stopwatch.Stop();
+                Debug.Log("Creating objects and Removing duplicate objects took " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
 
                 return new ConcurrentBag<SoldakObject>(nonDuplicateList);
             }
             else {
+                stopwatch.Stop();
+                Debug.Log("Creating objects and Not removing any duplicates took " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
+
                 return newList;
             }
         }

@@ -1,12 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace SoldakModdingTool
 {
-    public class SoldakObject
+    public class SoldakObject : IEquatable<SoldakObject>, IComparable<SoldakObject>
     {
+        public bool Equals(SoldakObject other)
+        {
+            return this.Name == other.Name && this.Modifier == Modifiers.none && other.Modifier == Modifiers.none;
+        }
+
+        public int CompareTo(SoldakObject other)
+        {
+            return FilePath.CompareTo(other.FilePath) == 1 ? 1 : 0;
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode() + Modifier.GetHashCode();
+        }
+
         public string FilePath;
         public string ModdedName;
         public Modifiers Modifier;

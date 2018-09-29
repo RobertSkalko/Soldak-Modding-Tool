@@ -19,16 +19,19 @@ namespace SoldakModdingTool
             var derivedObjects = new List<SoldakObject>();
             List<string> Bases = new List<string>() { baseType };
 
+            for (int i = objects.Count - 1; i > -1; i--) {
+                var obj = objects[i];
+                if (obj == null || !obj.HasBase) {
+                    objects.RemoveAt(i);
+                }
+            }
+
             while (ThereIsAnotherInheritanceLevel) {
                 ThereIsAnotherInheritanceLevel = false;
 
                 for (int i = objects.Count - 1; i > -1; i--) {
                     var obj = objects[i];
-
-                    if (obj == null || !obj.HasBase) {
-                        objects.RemoveAt(i);
-                    }
-                    else if (Bases.Contains(obj.GetBase)) {
+                    if (Bases.Contains(obj.GetBase)) {
                         derivedObjects.Add(obj);
                         objects.RemoveAt(i);
                         ThereIsAnotherInheritanceLevel = true;
