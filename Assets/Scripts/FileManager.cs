@@ -38,7 +38,7 @@ namespace SoldakModdingTool
             }
         }
 
-        public static ConcurrentBag<SoldakObject> GetObjectsFromAllFilesInPath(string path, bool OnlyVanillaAssets = false)
+        public static ConcurrentBag<SoldakObject> GetObjectsFromAllFilesInPath(string path, bool OnlyVanillaAssets = false, bool AllowDuplicates = false)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -49,7 +49,7 @@ namespace SoldakModdingTool
             Profiler.EndSample();
             Profiler.BeginSample("RemoveComments");
 
-            var fileswithoutcomments = CommentRemover.RemoveCommentsFromList(files);
+            var fileswithoutcomments = CommentRemover.RemoveComments(files);
             Profiler.EndSample();
             Profiler.BeginSample("SplitObjects");
 
@@ -57,7 +57,7 @@ namespace SoldakModdingTool
             Profiler.EndSample();
             Profiler.BeginSample("GenerateSoldakObjects");
 
-            var soldakobjects = GenerateSoldakObjects(splitobjects); // also highly intensive
+            var soldakobjects = GenerateSoldakObjects(splitobjects, AllowDuplicates); // also highly intensive
             Profiler.EndSample();
 
             stopwatch.Stop();
@@ -66,35 +66,80 @@ namespace SoldakModdingTool
             return soldakobjects;
         }
 
-        private static ConcurrentBag<string> SplitObjectsFromFiles(ConcurrentBag<string> Files)
+        private static ConcurrentDictionary<string, string> SplitObjectsFromFiles(ConcurrentDictionary<string, string> Files)
         {
-            var SplitObjects = new ConcurrentBag<string>();
+            var SplitObjects = new ConcurrentDictionary<string, string>();
             var bracket = "}";
             var anytext = @"^\S";
 
             Parallel.ForEach(Files, (file) => {
-                var objs = file.Split(new string[] { anytext, bracket }, StringSplitOptions.RemoveEmptyEntries);
+                var objs = file.Key.Split(new string[] { anytext, bracket }, StringSplitOptions.RemoveEmptyEntries);
 
-                SplitObjects.AddRange(objs.Where(x => !string.IsNullOrWhiteSpace(x)));
+                foreach (var item in file.Key.Split(new string[] { anytext, bracket }, StringSplitOptions.RemoveEmptyEntries)) {
+                    if (!string.IsNullOrWhiteSpace(item)) {
+                        SplitObjects.TryAdd(item, file.Key);
+                    }
+                }
             });
 
             return SplitObjects;
         }
 
-        private static ConcurrentBag<SoldakObject> GenerateSoldakObjects(ConcurrentBag<string> list)
+        private static Tuple<SoldakObject, int> GetMatching(List<SoldakObject> objects, SoldakObject match)
         {
-            var newlist = new ConcurrentBag<SoldakObject>();
-
-            Parallel.ForEach(list, (file) => {
-                newlist.Add(new SoldakObject(file));
-            });
-
-            return newlist;
+            for (var i = 0; i < objects.Count; i++) {
+                var obj = objects[i];
+                if (obj.Name == match.Name && obj.Modifier == Modifiers.none && match.Modifier == Modifiers.none) {
+                    return new Tuple<SoldakObject, int>(obj, i);
+                }
+            }
+            return null;
         }
 
-        private static ConcurrentBag<string> GetAllGDBFilesInsideZip(string file)
+        private static SoldakObject ReturnBasedOnFilePath(SoldakObject obj1, SoldakObject obj2)
         {
-            var list = new ConcurrentBag<string>();
+            return obj1.FilePath.CompareTo(obj2.FilePath) == 0 ? obj1 : obj2;
+        }
+
+        private static ConcurrentBag<SoldakObject> GenerateSoldakObjects(ConcurrentDictionary<string, string> Files, bool AllowDuplicates = false)
+        {
+            var newList = new ConcurrentBag<SoldakObject>();
+
+            Debug.Log(Files.Values.Count);
+
+            Parallel.ForEach(Files, (file) => {
+                newList.Add(new SoldakObject(file.Key, file.Value));
+            });
+            /*
+            Parallel.ForEach(newList, (item) => {
+            });
+            */
+
+            if (!AllowDuplicates) {
+                var nonDuplicateList = new List<SoldakObject>();
+
+                foreach (var obj in newList) {
+                    var ObjIntTuple = GetMatching(nonDuplicateList, obj);
+
+                    if (ObjIntTuple != null) {
+                        nonDuplicateList[ObjIntTuple.Item2] = ReturnBasedOnFilePath(ObjIntTuple.Item1, obj);
+                    }
+                    else {
+                        nonDuplicateList.Add(obj);
+                    }
+                }
+                Debug.Log(nonDuplicateList.Count);
+
+                return new ConcurrentBag<SoldakObject>(nonDuplicateList);
+            }
+            else {
+                return newList;
+            }
+        }
+
+        private static ConcurrentDictionary<string, string> GetAllGDBFilesInsideZip(string file)
+        {
+            var dict = new ConcurrentDictionary<string, string>();
 
             var options = new ReadOptions
             {
@@ -108,34 +153,38 @@ namespace SoldakModdingTool
                     if (zippedFile.FileName.EndsWith(".gdb")) {
                         var stream = new StreamReader(zippedFile.OpenReader());
                         var fileText = stream.ReadToEnd();
-                        list.Add(fileText);
+                        dict.TryAdd(fileText, file);
                         stream.Close();
                     }
                 }
             }
 
-            return list;
+            return dict;
         }
 
-        public static ConcurrentBag<string> GetAllGDBFilesInFolder(string path, bool OnlyVanillaAssets = false)
+        public static ConcurrentDictionary<string, string> GetAllGDBFilesInFolder(string path, bool OnlyVanillaAssets = false)
         {
-            ConcurrentBag<string> filetxts = new ConcurrentBag<string>();
+            var dict = new ConcurrentDictionary<string, string>();
 
             Parallel.ForEach(Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories), (file) => {
                 if (OnlyVanillaAssets) {
                     if (file.Contains("assets")) {
-                        filetxts.AddRange(GetAllGDBFilesInsideZip(file));
+                        foreach (var item in GetAllGDBFilesInsideZip(file)) {
+                            dict.TryAdd(item.Key, item.Value);
+                        }
                     }
                 }
                 else {
-                    filetxts.AddRange(GetAllGDBFilesInsideZip(file));
+                    foreach (var item in GetAllGDBFilesInsideZip(file)) {
+                        dict.TryAdd(item.Key, item.Value);
+                    }
                     if (file.EndsWith(".gdb")) {
-                        filetxts.Add(File.ReadAllText(file));
+                        dict.TryAdd(File.ReadAllText(file), file);
                     }
                 }
             });
 
-            return filetxts;
+            return dict;
         }
     }
 }

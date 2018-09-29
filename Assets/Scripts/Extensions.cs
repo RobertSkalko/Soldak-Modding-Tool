@@ -15,9 +15,9 @@ namespace SoldakModdingTool
     {
         public static void AddRange<T>(this ConcurrentBag<T> @this, IEnumerable<T> toAdd)
         {
-            foreach (var element in toAdd) {
-                @this.Add(element);
-            }
+            Parallel.ForEach(toAdd, (elem) => {
+                @this.Add(elem);
+            });
         }
 
         public static List<string> ToStringList(this List<SoldakObject> objects)

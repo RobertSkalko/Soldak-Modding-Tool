@@ -7,6 +7,7 @@ namespace SoldakModdingTool
 {
     public class SoldakObject
     {
+        public string FilePath;
         public string ModdedName;
         public Modifiers Modifier;
         public string Name;
@@ -20,8 +21,10 @@ namespace SoldakModdingTool
             return ModName + Name;
         }
 
-        public SoldakObject(string text)
+        public SoldakObject(string text, string filepath)
         {
+            this.FilePath = filepath;
+
             SetupNameInfo(text);
 
             text = RemoveBracketsAndAnythingBeforeThem(text);

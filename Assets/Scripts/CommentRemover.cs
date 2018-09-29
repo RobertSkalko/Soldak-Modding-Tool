@@ -20,14 +20,15 @@ namespace SoldakModdingTool
             return afterRemoval;
         }
 
-        public static ConcurrentBag<string> RemoveCommentsFromList(ConcurrentBag<string> files)
+        public static ConcurrentDictionary<string, string> RemoveComments(ConcurrentDictionary<string, string> files)
         {
-            ConcurrentBag<string> list = new ConcurrentBag<string>();
+            var newDict = new ConcurrentDictionary<string, string>();
 
-            Parallel.ForEach(files, (s) => {
-                list.Add(RemoveComments(s));
-            });
-            return list;
+            foreach (var item in files) {
+                newDict.TryAdd(RemoveComments(item.Key), item.Value);
+            }
+
+            return newDict;
         }
     }
 }

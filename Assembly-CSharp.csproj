@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Saving\Saving.cs" />
     <Compile Include="Assets\Scripts\SoldakObject.cs" />
     <Compile Include="Assets\Scripts\ToolButton.cs" />
+    <Compile Include="Assets\Scripts\Tools\ToolDuplicateChecker.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolGetAllDerived.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolOverrideNameSetter.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolSpellsUseWeaponDmg.cs" />
