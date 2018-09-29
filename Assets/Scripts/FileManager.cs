@@ -26,7 +26,6 @@ namespace SoldakModdingTool
                 return;
             }
             string filename = Save.file.OutputPath + "/" + DateTime.Now.ToFileTime() + ".txt";
-            //File.GetAccessControl(filename);
             File.WriteAllText(filename, file);
 
             Debug.Log("File saved to \"" + Save.file.OutputPath + "\"");
@@ -54,11 +53,11 @@ namespace SoldakModdingTool
             Profiler.EndSample();
             Profiler.BeginSample("SplitObjects");
 
-            var splitobjects = SplitObjectsFromFiles(fileswithoutcomments); // this takes half the time
+            var splitobjects = SplitObjectsFromFiles(fileswithoutcomments);
             Profiler.EndSample();
             Profiler.BeginSample("GenerateSoldakObjects");
 
-            var soldakobjects = GenerateSoldakObjects(splitobjects, AllowDuplicates); // also highly intensive
+            var soldakobjects = SoldakObjectGenerator.GenerateSoldakObjects(splitobjects, AllowDuplicates); // also highly intensive
             Profiler.EndSample();
 
             stopwatch.Stop();
@@ -84,45 +83,6 @@ namespace SoldakModdingTool
             });
 
             return SplitObjects;
-        }
-
-        private static SoldakObject ReturnBasedOnFilePath(SoldakObject obj1, SoldakObject obj2)
-        {
-            return obj1.FilePath.CompareTo(obj2.FilePath) == 0 ? obj1 : obj2;
-        }
-
-        private static ConcurrentBag<SoldakObject> GenerateSoldakObjects(ConcurrentDictionary<string, string> Files, bool AllowDuplicates = false)
-        {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            var newList = new ConcurrentBag<SoldakObject>();
-
-            Debug.Log(Files.Values.Count);
-
-            Parallel.ForEach(Files, (file) => {
-                newList.Add(new SoldakObject(file.Key, file.Value));
-            });
-
-            if (!AllowDuplicates) {
-                var nonDuplicateList = new HashSet<SoldakObject>();
-
-                foreach (var obj in newList) {
-                    nonDuplicateList.Add(obj);
-                }
-                Debug.Log(nonDuplicateList.Count);
-
-                stopwatch.Stop();
-                Debug.Log("Creating objects and Removing duplicate objects took " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
-
-                return new ConcurrentBag<SoldakObject>(nonDuplicateList);
-            }
-            else {
-                stopwatch.Stop();
-                Debug.Log("Creating objects and Not removing any duplicates took " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
-
-                return newList;
-            }
         }
 
         private static ConcurrentDictionary<string, string> GetAllGDBFilesInsideZip(string file)
