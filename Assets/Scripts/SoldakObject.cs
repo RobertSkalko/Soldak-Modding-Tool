@@ -24,9 +24,9 @@ namespace SoldakModdingTool
         }
 
         public string FilePath;
-        public string ModdedName;
-        public Modifiers Modifier;
-        public string Name;
+        public string ModdedName = "";
+        public Modifiers Modifier = Modifiers.none;
+        public string Name = "";
         public Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>();
 
         public bool HasBase => Dict.ContainsKey("Base") && Dict["Base"].Count > 0 && !string.IsNullOrEmpty(Dict["Base"][0]);

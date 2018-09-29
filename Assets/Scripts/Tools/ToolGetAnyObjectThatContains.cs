@@ -12,15 +12,19 @@ namespace SoldakModdingTool
 
         protected override void Action()
         {
-            var set = new HashSet<SoldakObject>();
+            var set = new HashSet<string>();
 
             string str = Save.file.InputCommand;
 
             foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.file.GamePath)) {
-                if (obj.Name.Contains(str) || obj.ModdedName.Contains(str) || (obj.Dict.Count > 0 && obj.Dict.Any(x => x.Key.Contains(str) || x.Value.Contains(str)))) {
-                    set.Add(obj);
+                if (obj.Name.Contains(str)
+                    || (!string.IsNullOrEmpty(obj.ModdedName) && obj.ModdedName.Contains(str))
+                    || (obj.Dict.Count > 0 && obj.Dict.Any(x => x.Key.Contains(str) || (x.Value.Count > 0 && x.Value.Any(y => y.Contains(str)))))) {
+                    set.Add(obj.GetTextRepresentation(obj.Dict, obj.ModdedName, obj.Modifier));
                 }
             }
+
+            FileManager.SaveOutputToFile(string.Join("\n", set));
         }
     }
 }
