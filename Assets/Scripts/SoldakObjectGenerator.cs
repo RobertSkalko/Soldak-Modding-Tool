@@ -24,9 +24,9 @@ namespace SoldakModdingTool
                 newList.Add(new SoldakObject(file.Key, file.Value));
             });
 
-            var nonDuplicateList = new HashSet<SoldakObject>(newList);
-
             if (!AllowDuplicates) {
+                var nonDuplicateList = new HashSet<SoldakObject>(newList);
+
                 Debug.Log(nonDuplicateList.Count());
 
                 stopwatch.Stop();
@@ -36,7 +36,7 @@ namespace SoldakModdingTool
             }
             else {
                 stopwatch.Stop();
-                Debug.Log("Creating objects and Not removing any duplicates took " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
+                Debug.Log("Creating objects without removing any duplicates took " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
 
                 return new ConcurrentBag<SoldakObject>(newList);
             }

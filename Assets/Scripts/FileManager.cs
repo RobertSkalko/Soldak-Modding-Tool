@@ -110,7 +110,7 @@ namespace SoldakModdingTool
             return dict;
         }
 
-        public static ConcurrentDictionary<string, string> GetAllGDBFilesInFolder(string path, bool OnlyVanillaAssets = false)
+        private static ConcurrentDictionary<string, string> GetAllGDBFilesInFolder(string path, bool OnlyVanillaAssets = false)
         {
             var dict = new ConcurrentDictionary<string, string>();
 

@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\ToolButton.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolDuplicateChecker.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolGetAllDerived.cs" />
+    <Compile Include="Assets\Scripts\Tools\ToolGetAnyObjectThatContains.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolOverrideNameSetter.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolSpellsUseWeaponDmg.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolTestGameAssetsLoadSpeed.cs" />
