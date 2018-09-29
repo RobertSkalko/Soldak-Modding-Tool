@@ -16,17 +16,30 @@ namespace SoldakModdingTool
         {
             var list = new List<string>();
 
-            foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.file.FilesToEditPath)) {
-                if (obj.Dict.ContainsKey("ProjMinDamage") && obj.Dict.ContainsKey("ProjMaxDamage") && float.Parse(obj.Dict["ProjMaxDamage"][0]) > 0) {
-                    float AverageDmg = (float.Parse(obj.Dict["ProjMinDamage"][0]) + float.Parse(obj.Dict["ProjMaxDamage"][0])) / 2F;
+            var min = new string[] { "ProjRadiusMinDamage", "ProjMinDamage", "MinDamage" };
+            var max = new string[] { "ProjRadiusMaxDamage", "ProjMaxDamage", "MaxDamage" };
+
+            int number;
+
+            foreach (var obj in GetDerived.GetDerivedObjectsOf(FileManager.GetObjectsFromAllFilesInPath(Save.file.GamePath, true).ToList(), "BaseSkill")) {
+                number = -1;
+
+                for (var i = 0; i < min.Length; i++) {
+                    if (obj.Dict.Any(x => x.Key.Equals(min[i]))) {
+                        number = i;
+                    }
+                }
+
+                if (number > -1) {
+                    float AverageDmg = (float.Parse(obj.Dict[min[number]][0]) + float.Parse(obj.Dict[max[number]][0])) / 2F;
 
                     if (!obj.Dict["Base"][0].Contains("PerLevel")) { // if its a skill (should be)
                         float DmgMult = ConvertSpellDamageIntoWeaponDmgMultipliers(AverageDmg);
 
                         Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>
                         {
-                        { "ProjMinDamage", new List<string>() { "0" } },
-                        { "ProjMaxDamage", new List<string>() { "0" } },
+                        { min[number], new List<string>() { "0" } },
+                        { max[number], new List<string>() { "0" } },
                         { "DamageMultAll", new List<string>() {  DmgMult.ToString() } },
                         { "ProjectileDamage", new List<string>() { "1" } },
                         };
@@ -38,8 +51,8 @@ namespace SoldakModdingTool
 
                         Dictionary<string, List<string>> Dict = new Dictionary<string, List<string>>
                         {
-                        { "ProjMinDamage", new List<string>() { "0" } },
-                        { "ProjMaxDamage", new List<string>() { "0" } },
+                        { min[number], new List<string>() { "0" } },
+                        { max[number], new List<string>() { "0" } },
                         { "DamageMultAll", new List<string>() {  DmgMult.ToString() } },
                         };
 
@@ -49,7 +62,6 @@ namespace SoldakModdingTool
             }
 
             FileManager.SaveOutputToFile(string.Join("\n", list.ToArray()));
-            //Debug.Log(string.Join("\n", list.ToArray()));
         }
 
         private float GetPerLevelMult(float AverageDmg)
@@ -65,7 +77,7 @@ namespace SoldakModdingTool
             float AverageDmgCutOff = 30;
 
             if (AverageDmg > AverageDmgCutOff) {
-                return 1 + (AverageDmg - AverageDmgCutOff) * MultPerOneNumber;
+                return (AverageDmg - AverageDmgCutOff) * MultPerOneNumber;
             }
             else {
                 return -Math.Abs(MultPerOneNumber * (AverageDmg - AverageDmgCutOff) * 2.5F);
