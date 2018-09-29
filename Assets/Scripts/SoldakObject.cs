@@ -82,24 +82,14 @@ namespace SoldakModdingTool
 
                 int SplitIndex = trimmed.IndexOf(c => char.IsWhiteSpace(c));
 
-                string first = TrimWhiteSpaceAtBothEnds(trimmed.Substring(0, SplitIndex));
-                string second = TrimWhiteSpaceAtBothEnds(trimmed.Substring(SplitIndex));
+                string left = trimmed.Substring(0, SplitIndex).TrimEnd();
+                var right = new List<string>() { trimmed.Substring(SplitIndex).TrimStart() };
 
-                List<string> KeyAndValue = new List<string>() { first, second };
-
-                if (KeyAndValue.Count == 2) {
-                    var value = new List<string>() { KeyAndValue[1] };
-                    var key = KeyAndValue[0];
-                    if (!Dict.ContainsKey(key)) {
-                        Dict.Add(key, value);
-                    }
-                    else {
-                        Dict[key].AddRange(value);
-                    }
+                if (!Dict.ContainsKey(left)) {
+                    Dict.Add(left, right);
                 }
                 else {
-                    Debug.Log("Data length isn't 2, there must be an entry and a value!");
-                    KeyAndValue.ForEach(x => Debug.Log(x));
+                    Dict[left].AddRange(right);
                 }
             }
         }
