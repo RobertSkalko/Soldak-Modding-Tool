@@ -108,17 +108,7 @@ namespace SoldakModdingTool
                 var nonDuplicateList = new HashSet<SoldakObject>();
 
                 foreach (var obj in newList) {
-                    // if (!nonDuplicateList.Contains(obj)) {
                     nonDuplicateList.Add(obj);
-                    // }
-                    /*
-                     else {
-                         nonDuplicateList.
-                         nonDuplicateList.Remove(obj);
-
-                         nonDuplicateList.Add(ReturnBasedOnFilePath(obj));
-                     }
-                     */
                 }
                 Debug.Log(nonDuplicateList.Count);
 

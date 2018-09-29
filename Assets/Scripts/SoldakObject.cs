@@ -90,7 +90,6 @@ namespace SoldakModdingTool
             return s.TrimEnd().TrimStart();
         }
 
-        // this is probably performance issue
         private void SetupDBInfo(string txt)
         {
             foreach (string s in RemoveEmptyStrings(txt.Split('\n'))) {

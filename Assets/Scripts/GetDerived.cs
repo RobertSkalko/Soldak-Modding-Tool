@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -16,8 +18,9 @@ namespace SoldakModdingTool
             stopwatch.Start();
 
             bool ThereIsAnotherInheritanceLevel = true;
-            var derivedObjects = new List<SoldakObject>();
-            List<string> Bases = new List<string>() { baseType };
+            var derivedObjects = new HashSet<SoldakObject>();
+            HashSet<string> Bases = new HashSet<string>() { baseType };
+            HashSet<string> ObjectNamesAdded = new HashSet<string>();
 
             for (int i = objects.Count - 1; i > -1; i--) {
                 var obj = objects[i];
@@ -25,27 +28,21 @@ namespace SoldakModdingTool
                     objects.RemoveAt(i);
                 }
             }
-
             while (ThereIsAnotherInheritanceLevel) {
                 ThereIsAnotherInheritanceLevel = false;
 
-                for (int i = objects.Count - 1; i > -1; i--) {
-                    var obj = objects[i];
-                    if (Bases.Contains(obj.GetBase)) {
+                foreach (var obj in objects) {
+                    if (Bases.Contains(obj.GetBase) && ObjectNamesAdded.Add(obj.Name)) {
+                        Bases.Add(obj.Name);
                         derivedObjects.Add(obj);
-                        objects.RemoveAt(i);
                         ThereIsAnotherInheritanceLevel = true;
-
-                        if (!Bases.Contains(obj.Name)) {
-                            Bases.Add(obj.Name);
-                        }
                     }
                 }
             }
             stopwatch.Stop();
             Debug.Log("Getting Derived Objects Took: " + stopwatch.ElapsedMilliseconds + " Miliseconds or " + stopwatch.ElapsedMilliseconds / 1000 + " Seconds");
 
-            return derivedObjects;
+            return derivedObjects.ToList();
         }
     }
 }
