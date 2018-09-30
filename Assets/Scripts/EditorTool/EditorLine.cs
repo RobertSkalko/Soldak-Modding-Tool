@@ -14,33 +14,29 @@ namespace SoldakModdingTool
         public string Name;
 
         private string _key;
-        public string Key { get => _key; set { if (!string.IsNullOrEmpty(value)) _key = value; OnValueChanged.Invoke(); } }
+        public string Key { get => _key; set { TryOverride(_key, value); _key = value; } }
 
         private string _value;
-        public string Value { get => _value; set { if (!string.IsNullOrEmpty(value)) _value = value; OnValueChanged.Invoke(); } }
-
-        public UnityEvent OnValueChanged;
+        public string Value { get => _value; set { TryOverride(_value, value); _value = value; } }
 
         public void Init(string name, string key, string value)
         {
-            OnValueChanged = new UnityEvent();
-
             this.Name = name;
-            this.Key = key;
-            this.Value = value;
+            this._key = key;
+            this._value = value;
 
             DefualtKeyObj.text = key;
             DefualtValueObj.text = value;
         }
 
-        public void Start()
+        public void TryOverride(string before, string after)
         {
-            OnValueChanged.AddListener(AddOverride);
-        }
-
-        public void AddOverride()
-        {
-            EditorGenerator.TryAddOverride(Name, Key, Value);
+            if (string.IsNullOrEmpty(after) && !string.IsNullOrEmpty(before)) {
+                EditorGenerator.RemoveAKey(Key);
+            }
+            else {
+                EditorGenerator.TryAddOverride(Name, Key, Value);
+            }
         }
     }
 }

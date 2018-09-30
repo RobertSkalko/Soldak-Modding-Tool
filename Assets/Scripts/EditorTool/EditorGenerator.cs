@@ -16,6 +16,13 @@ namespace SoldakModdingTool
 
         public static UnityEvent OnFilterUpdated;
 
+        public static void RemoveAKey(string key)
+        {
+            if (OverridenObjects.ContainsKey(key)) {
+                OverridenObjects.Remove(key);
+            }
+        }
+
         public static void TryAddOverride(string name, string key, string value)
         {
             if (IfIsAnEdit(name, key, value)) {
@@ -74,18 +81,18 @@ namespace SoldakModdingTool
 
             if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.IsDerivedOf)) {
                 objects = AllObjects.GetDerivedFrom(Save.Instance.EditorDatas.IsDerivedOf);
-                Debug.Log("Objects after derived filtering :" + objects.Count);
+                //Debug.Log("Objects after derived filtering :" + objects.Count);
             }
             if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.NameContains)) {
                 objects = objects.Where(x => x.Value.Name.Contains(Save.Instance.EditorDatas.NameContains)).ToDictionary(v => v.Key, v => v.Value);
-                Debug.Log("Objects after name filtering :" + objects.Count);
+                //Debug.Log("Objects after name filtering :" + objects.Count);
             }
             if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.AnyPartContains)) {
                 objects = objects.Where(x => x.Value.GetTextRepresentation().Contains(Save.Instance.EditorDatas.AnyPartContains)).ToDictionary(v => v.Key, v => v.Value);
-                Debug.Log("Objects after anypart filtering :" + objects.Count);
+                //Debug.Log("Objects after anypart filtering :" + objects.Count);
             }
 
-            int MaxObjectCount = 50;
+            int MaxObjectCount = 300;
 
             if (objects.Count > MaxObjectCount) {
                 Debug.Log("too many objects :" + objects.Count + " Please filter until there's less than " + MaxObjectCount + " objects");
