@@ -46,6 +46,9 @@ namespace SoldakModdingTool
             newobj.ModdedName = Save.Instance.ModName + name;
             newobj.Modifier = Modifiers.overrides;
 
+            Debug.Log(newobj.ModdedName);
+            Debug.Log(name);
+
             return newobj;
         }
 
@@ -140,7 +143,7 @@ namespace SoldakModdingTool
 
         public string GetTextRepresentation()
         {
-            return GetTextRepresentation(Dict, ModdedName, Modifier);
+            return GetTextRepresentation(Dict, Name, Modifier);
         }
 
         public string GetTextRepresentation(Dictionary<string, List<string>> OverridenValues, string modName, Modifiers modifier)

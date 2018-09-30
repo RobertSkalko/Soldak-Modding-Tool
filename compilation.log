@@ -1,5 +1,5 @@
 ********************************************************************************
-*                    Sunday, September 30, 2018 4:00:51 PM                     *
+*                    Sunday, September 30, 2018 4:20:45 PM                     *
 ********************************************************************************
 CSharpCompilerWrapper.exe version: 4.0.4.230
 Unity version: 2018.2.10f1
@@ -13,16 +13,16 @@ Compiler: Microsoft C# 7.3 (2.8.0.62830)
 - Compilation ------------------------------------------------
 
 Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-098ed1ccb0002ac45a1003894aaed01f
+Arguments: -noconfig @Temp/UnityTempFile-64fc07bb4766dd74494548ff416df6b9
 Exit code: 0
-Elapsed time: 0.86 sec
+Elapsed time: 3.50 sec
 
 - Output (0 lines):
 
 - Errors (0 lines):
 
 ********************************************************************************
-*                    Sunday, September 30, 2018 4:02:47 PM                     *
+*                    Sunday, September 30, 2018 4:22:37 PM                     *
 ********************************************************************************
 CSharpCompilerWrapper.exe version: 4.0.4.230
 Unity version: 2018.2.10f1
@@ -36,80 +36,35 @@ Compiler: Microsoft C# 7.3 (2.8.0.62830)
 - Compilation ------------------------------------------------
 
 Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-89f54e4aa1588ec4c9a34d678c0906e3
+Arguments: -noconfig @Temp/UnityTempFile-bfe473f4ab31cfe4abb972bfb1dc644a
+Exit code: 0
+Elapsed time: 0.74 sec
+
+- Output (0 lines):
+
+- Errors (0 lines):
+
+********************************************************************************
+*                    Sunday, September 30, 2018 4:24:54 PM                     *
+********************************************************************************
+CSharpCompilerWrapper.exe version: 4.0.4.230
+Unity version: 2018.2.10f1
+Platform: Windows
+Target assembly: Assembly-CSharp.dll
+Project directory: C:\Users\User\Documents\Soldak Modding Tool
+Target profile directory: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unityjit
+Unity Mono executable: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\bin\mono.exe
+Compiler: Microsoft C# 7.3 (2.8.0.62830)
+
+- Compilation ------------------------------------------------
+
+Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
+Arguments: -noconfig @Temp/UnityTempFile-5865594e79fc10649b3ecf8be25f4074
 Exit code: 0
 Elapsed time: 0.79 sec
 
-- Output (0 lines):
-
-- Errors (0 lines):
-
-********************************************************************************
-*                    Sunday, September 30, 2018 4:04:10 PM                     *
-********************************************************************************
-CSharpCompilerWrapper.exe version: 4.0.4.230
-Unity version: 2018.2.10f1
-Platform: Windows
-Target assembly: Assembly-CSharp.dll
-Project directory: C:\Users\User\Documents\Soldak Modding Tool
-Target profile directory: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unityjit
-Unity Mono executable: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\bin\mono.exe
-Compiler: Microsoft C# 7.3 (2.8.0.62830)
-
-- Compilation ------------------------------------------------
-
-Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-747efe974e2dd3e45bfb10dd483c6e49
-Exit code: 0
-Elapsed time: 0.75 sec
-
-- Output (0 lines):
-
-- Errors (0 lines):
-
-********************************************************************************
-*                    Sunday, September 30, 2018 4:08:29 PM                     *
-********************************************************************************
-CSharpCompilerWrapper.exe version: 4.0.4.230
-Unity version: 2018.2.10f1
-Platform: Windows
-Target assembly: Assembly-CSharp.dll
-Project directory: C:\Users\User\Documents\Soldak Modding Tool
-Target profile directory: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unityjit
-Unity Mono executable: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\bin\mono.exe
-Compiler: Microsoft C# 7.3 (2.8.0.62830)
-
-- Compilation ------------------------------------------------
-
-Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-f404742abc4238142b61896bb7929548
-Exit code: 0
-Elapsed time: 0.79 sec
-
-- Output (0 lines):
-
-- Errors (0 lines):
-
-********************************************************************************
-*                    Sunday, September 30, 2018 4:09:52 PM                     *
-********************************************************************************
-CSharpCompilerWrapper.exe version: 4.0.4.230
-Unity version: 2018.2.10f1
-Platform: Windows
-Target assembly: Assembly-CSharp.dll
-Project directory: C:\Users\User\Documents\Soldak Modding Tool
-Target profile directory: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unityjit
-Unity Mono executable: C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\bin\mono.exe
-Compiler: Microsoft C# 7.3 (2.8.0.62830)
-
-- Compilation ------------------------------------------------
-
-Process: C:\Users\User\Documents\Soldak Modding Tool\CSharp70Support\Roslyn\csc.exe
-Arguments: -noconfig @Temp/UnityTempFile-9ffa9b75d1c07394fb3906d128644775
-Exit code: 0
-Elapsed time: 0.85 sec
-
-- Output (0 lines):
+- Output (1 line):
+0: Assets\Scripts\EditorTool\EditorGenerator.cs(34,21): warning CS0414: The field 'EditorGenerator.count' is assigned but its value is never used
 
 - Errors (0 lines):
 

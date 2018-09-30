@@ -41,8 +41,6 @@ namespace SoldakModdingTool
         public void AddOverride()
         {
             EditorGenerator.TryAddOverride(Name, Key, Value);
-
-            Debug.Log("test working");
         }
     }
 }

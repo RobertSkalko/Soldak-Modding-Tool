@@ -31,6 +31,17 @@ namespace SoldakModdingTool
             }
         }
 
+        private int count = 0;
+
+        public static void GenerateModFile()
+        {
+            string s = "";
+
+            OverridenObjects.Values.ToList().ForEach(x => s += x.GetTextRepresentation());
+
+            FileManager.SaveOutputToFile(s);
+        }
+
         private static bool IfIsAnEdit(string name, string key, string value)
         {
             var obj = AllObjects[name];
@@ -75,13 +86,13 @@ namespace SoldakModdingTool
                 Debug.Log("Objects after derived filtering :" + objects.Count);
             }
 
-            if (objects.Count < 25 && objects.Count > 0) {
-                Debug.Log("filtered correctly probably");
+            int MaxObjectCount = 25;
 
+            if (objects.Count < MaxObjectCount && objects.Count > 0) {
                 UpdateView(objects);
             }
             else {
-                Debug.Log("too many objects to display :" + objects.Count);
+                Debug.Log("too many objects :" + objects.Count + " Please filter until there's less than " + MaxObjectCount + " objects");
             }
         }
 
