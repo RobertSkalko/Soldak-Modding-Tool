@@ -14,10 +14,10 @@ namespace SoldakModdingTool
         public string Name;
 
         private string _key;
-        public string Key { get => _key; set { _key = value; OnValueChanged.Invoke(); } }
+        public string Key { get => _key; set { if (!string.IsNullOrEmpty(value)) _key = value; OnValueChanged.Invoke(); } }
 
         private string _value;
-        public string Value { get => _value; set { _value = value; OnValueChanged.Invoke(); } }
+        public string Value { get => _value; set { if (!string.IsNullOrEmpty(value)) _value = value; OnValueChanged.Invoke(); } }
 
         public UnityEvent OnValueChanged;
 

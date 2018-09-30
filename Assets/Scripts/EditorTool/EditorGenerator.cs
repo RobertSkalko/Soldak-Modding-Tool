@@ -31,9 +31,7 @@ namespace SoldakModdingTool
             }
         }
 
-        private int count = 0;
-
-        public static void GenerateModFile()
+        public void GenerateModFile()
         {
             string s = "";
 
@@ -86,13 +84,16 @@ namespace SoldakModdingTool
                 Debug.Log("Objects after derived filtering :" + objects.Count);
             }
 
-            int MaxObjectCount = 25;
+            int MaxObjectCount = 50;
 
-            if (objects.Count < MaxObjectCount && objects.Count > 0) {
-                UpdateView(objects);
+            if (objects.Count > MaxObjectCount) {
+                Debug.Log("too many objects :" + objects.Count + " Please filter until there's less than " + MaxObjectCount + " objects");
+            }
+            else if (objects.Count == 0) {
+                Debug.Log("No Objects Match");
             }
             else {
-                Debug.Log("too many objects :" + objects.Count + " Please filter until there's less than " + MaxObjectCount + " objects");
+                UpdateView(objects);
             }
         }
 
