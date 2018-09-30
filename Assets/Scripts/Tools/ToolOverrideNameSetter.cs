@@ -13,8 +13,8 @@ namespace SoldakModdingTool
         {
             var list = new List<string>();
 
-            foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.File.FilesToEditPath)) {
-                list.Add(obj.GetTextRepresentation(obj.Dict, Save.File.ModName, Modifiers.overrides));
+            foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.Instance.FilesToEditPath)) {
+                list.Add(obj.GetTextRepresentation(obj.Dict, Save.Instance.ModName, Modifiers.overrides));
             }
             FileManager.SaveOutputToFile(string.Join("\n", list.ToArray()));
         }

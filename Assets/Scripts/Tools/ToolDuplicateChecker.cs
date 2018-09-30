@@ -14,7 +14,7 @@ namespace SoldakModdingTool
         {
             var list = new List<string>();
 
-            foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.File.FilesToEditPath, false, true)) {
+            foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.Instance.FilesToEditPath, false, true)) {
                 list.Add(obj.Name);
             }
 

@@ -21,15 +21,15 @@ namespace SoldakModdingTool
 
             StoppedBecauseError = false;
 
-            if (!Directory.Exists(Save.File.FilesToEditPath)) {
+            if (!Directory.Exists(Save.Instance.FilesToEditPath)) {
                 Debug.Log("Please Enter FilesToEditPath");
                 StoppedBecauseError = true;
             }
-            if (!Directory.Exists(Save.File.OutputPath)) {
+            if (!Directory.Exists(Save.Instance.OutputPath)) {
                 Debug.Log("Please Enter OutputPath");
                 StoppedBecauseError = true;
             }
-            if (string.IsNullOrEmpty(Save.File.ModName)) {
+            if (string.IsNullOrEmpty(Save.Instance.ModName)) {
                 Debug.Log("Please Enter ModName");
                 StoppedBecauseError = true;
             }

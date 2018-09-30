@@ -19,18 +19,18 @@ namespace SoldakModdingTool
 
     public class Save
     {
-        private static Save file = null;
+        private static Save instance = null;
 
-        public static Save File {
+        public static Save Instance {
             get {
-                if (file == null) {
+                if (instance == null) {
                     TryLoadStateFromFile();
                 }
 
-                return file;
+                return instance;
             }
 
-            set => file = value;
+            set => instance = value;
         }
 
         private static string SaveFileName = "Save.txt";
@@ -59,17 +59,19 @@ namespace SoldakModdingTool
 
         public static void TryLoadStateFromFile()
         {
-            if (System.IO.File.Exists(SaveDataPath)) {
-                file = JsonConvert.DeserializeObject<Save>(System.IO.File.ReadAllText(SaveDataPath), deSettings) ?? new Save();
+            string savepath = SaveDataPath;
+
+            if (File.Exists(savepath)) {
+                instance = JsonConvert.DeserializeObject<Save>(File.ReadAllText(savepath), deSettings) ?? new Save();
             }
             else {
-                file = new Save();
+                instance = new Save();
             }
         }
 
         public static void SaveStateToFile()
         {
-            string json = JsonConvert.SerializeObject(File, Formatting.Indented, serSettings);
+            string json = JsonConvert.SerializeObject(Instance, Formatting.Indented, serSettings);
 
             if (!Directory.Exists(SaveDataPathWithoutFileName)) {
                 Directory.CreateDirectory(SaveDataPathWithoutFileName);

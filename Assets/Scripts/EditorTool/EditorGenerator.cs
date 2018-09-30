@@ -54,7 +54,7 @@ namespace SoldakModdingTool
             if (AllObjects == null || AllObjects.Count == 0) {
                 AllObjects = new Dictionary<string, SoldakObject>();
 
-                FileManager.GetObjectsFromAllFilesInPath(Save.File.GamePath).ToList().Where(x => x.Modifier == Modifiers.none).ToList().ForEach(x => AllObjects.Add(x.Name, x));
+                FileManager.GetObjectsFromAllFilesInPath(Save.Instance.GamePath).ToList().Where(x => x.Modifier == Modifiers.none).ToList().ForEach(x => AllObjects.Add(x.Name, x));
             }
         }
 
@@ -62,16 +62,16 @@ namespace SoldakModdingTool
         {
             var objects = AllObjects;
 
-            if (!string.IsNullOrEmpty(Save.File.EditorDatas.NameContains)) {
-                objects = objects.Where(x => x.Value.Name.Contains(Save.File.EditorDatas.NameContains)).ToDictionary(v => v.Key, v => v.Value);
+            if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.NameContains)) {
+                objects = objects.Where(x => x.Value.Name.Contains(Save.Instance.EditorDatas.NameContains)).ToDictionary(v => v.Key, v => v.Value);
                 Debug.Log("Objects after name filtering :" + objects.Count);
             }
-            if (!string.IsNullOrEmpty(Save.File.EditorDatas.AnyPartContains)) {
-                objects = objects.Where(x => x.Value.GetTextRepresentation().Contains(Save.File.EditorDatas.AnyPartContains)).ToDictionary(v => v.Key, v => v.Value);
+            if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.AnyPartContains)) {
+                objects = objects.Where(x => x.Value.GetTextRepresentation().Contains(Save.Instance.EditorDatas.AnyPartContains)).ToDictionary(v => v.Key, v => v.Value);
                 Debug.Log("Objects after anypart filtering :" + objects.Count);
             }
-            if (!string.IsNullOrEmpty(Save.File.EditorDatas.IsDerivedOf)) {
-                objects = objects.GetDerivedFrom(Save.File.EditorDatas.IsDerivedOf);
+            if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.IsDerivedOf)) {
+                objects = objects.GetDerivedFrom(Save.Instance.EditorDatas.IsDerivedOf);
                 Debug.Log("Objects after derived filtering :" + objects.Count);
             }
 

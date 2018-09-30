@@ -14,9 +14,9 @@ namespace SoldakModdingTool
         {
             var set = new HashSet<string>();
 
-            string str = Save.File.InputCommand;
+            string str = Save.Instance.InputCommand;
 
-            foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.File.GamePath)) {
+            foreach (var obj in FileManager.GetObjectsFromAllFilesInPath(Save.Instance.GamePath)) {
                 if (obj.Name.Contains(str)
                     || (!string.IsNullOrEmpty(obj.ModdedName) && obj.ModdedName.Contains(str))
                     || (obj.Dict.Count > 0 && obj.Dict.Any(x => x.Key.Contains(str) || (x.Value.Count > 0 && x.Value.Any(y => y.Contains(str)))))) {

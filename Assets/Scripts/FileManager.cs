@@ -21,14 +21,14 @@ namespace SoldakModdingTool
     {
         public static void SaveOutputToFile(string file)
         {
-            if (!Directory.Exists(Save.File.OutputPath)) {
+            if (!Directory.Exists(Save.Instance.OutputPath)) {
                 Debug.Log("OutputPath Doesn't exist or not Inputed!");
                 return;
             }
-            string filename = Save.File.OutputPath + "/" + DateTime.Now.ToFileTime() + ".gdb";
+            string filename = Save.Instance.OutputPath + "/" + DateTime.Now.ToFileTime() + ".gdb";
             File.WriteAllText(filename, file);
 
-            Debug.Log("File saved to \"" + Save.File.OutputPath + "\"");
+            Debug.Log("File saved to \"" + Save.Instance.OutputPath + "\"");
         }
 
         public static void WriteChangedFiles(string path, ConcurrentBag<string> files)

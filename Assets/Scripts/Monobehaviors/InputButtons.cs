@@ -8,27 +8,27 @@ namespace SoldakModdingTool
     {
         public void SetGamePathName(string s)
         {
-            Save.File.GamePath = s;
+            Save.Instance.GamePath = s;
         }
 
         public void SetFilesToEditPathName(string s)
         {
-            Save.File.FilesToEditPath = s;
+            Save.Instance.FilesToEditPath = s;
         }
 
         public void SetModName(string s)
         {
-            Save.File.ModName = s;
+            Save.Instance.ModName = s;
         }
 
         public void SetOutputPath(string s)
         {
-            Save.File.OutputPath = s;
+            Save.Instance.OutputPath = s;
         }
 
         public void SetInputCommand(string s)
         {
-            Save.File.InputCommand = s;
+            Save.Instance.InputCommand = s;
         }
     }
 }

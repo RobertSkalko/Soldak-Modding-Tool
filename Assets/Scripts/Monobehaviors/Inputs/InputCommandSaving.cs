@@ -7,7 +7,7 @@ namespace SoldakModdingTool
 {
     public class InputCommandSaving : MonoBehaviour
     {
-        public string Saved => Save.File.InputCommand;
+        public string Saved => Save.Instance.InputCommand;
 
         public bool Updated = false;
 

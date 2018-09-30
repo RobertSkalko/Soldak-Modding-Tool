@@ -21,7 +21,7 @@ namespace SoldakModdingTool
 
             int number;
 
-            foreach (var obj in GetDerived.GetDerivedFrom(FileManager.GetObjectsFromAllFilesInPath(Save.File.GamePath, true).ToList(), "BaseSkill")) {
+            foreach (var obj in GetDerived.GetDerivedFrom(FileManager.GetObjectsFromAllFilesInPath(Save.Instance.GamePath, true).ToList(), "BaseSkill")) {
                 number = -1;
 
                 for (var i = 0; i < min.Length; i++) {
@@ -44,7 +44,7 @@ namespace SoldakModdingTool
                         { "ProjectileDamage", new List<string>() { "1" } },
                         };
 
-                        list.Add(obj.GetTextRepresentation(Dict, Save.File.ModName, Modifiers.overrides));
+                        list.Add(obj.GetTextRepresentation(Dict, Save.Instance.ModName, Modifiers.overrides));
                     }
                     else if (obj.Dict["Base"][0].Contains("PerLevel")) { // if per level
                         float DmgMult = GetPerLevelMult(AverageDmg);
@@ -56,7 +56,7 @@ namespace SoldakModdingTool
                         { "DamageMultAll", new List<string>() {  DmgMult.ToString() } },
                         };
 
-                        list.Add(obj.GetTextRepresentation(Dict, Save.File.ModName, Modifiers.overrides));
+                        list.Add(obj.GetTextRepresentation(Dict, Save.Instance.ModName, Modifiers.overrides));
                     }
                 }
             }

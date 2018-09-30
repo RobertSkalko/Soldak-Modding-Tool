@@ -7,7 +7,7 @@ namespace SoldakModdingTool
 {
     public class GamePathSaving : MonoBehaviour
     {
-        public string Saved => Save.File.GamePath;
+        public string Saved => Save.Instance.GamePath;
 
         public bool Updated = false;
 

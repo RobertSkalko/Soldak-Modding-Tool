@@ -7,7 +7,7 @@ namespace SoldakModdingTool
 {
     public class FileToEditPathSaving : MonoBehaviour
     {
-        public string Saved => Save.File.FilesToEditPath;
+        public string Saved => Save.Instance.FilesToEditPath;
 
         public bool Updated = false;
 
