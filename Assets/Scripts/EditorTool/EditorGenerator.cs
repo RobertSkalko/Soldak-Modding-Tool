@@ -16,10 +16,14 @@ namespace SoldakModdingTool
 
         public static UnityEvent OnFilterUpdated;
 
-        public static void RemoveAKey(string key)
+        public static void RemoveAKey(string name, string key)
         {
-            if (OverridenObjects.ContainsKey(key)) {
-                OverridenObjects.Remove(key);
+            if (OverridenObjects.ContainsKey(name)) {
+                OverridenObjects[name].Dict.Remove(key);
+
+                if (OverridenObjects[name].Dict.Count == 0) {
+                    OverridenObjects.Remove(name);
+                }
             }
         }
 
@@ -92,7 +96,7 @@ namespace SoldakModdingTool
                 //Debug.Log("Objects after anypart filtering :" + objects.Count);
             }
 
-            int MaxObjectCount = 300;
+            int MaxObjectCount = 200;
 
             if (objects.Count > MaxObjectCount) {
                 Debug.Log("too many objects :" + objects.Count + " Please filter until there's less than " + MaxObjectCount + " objects");

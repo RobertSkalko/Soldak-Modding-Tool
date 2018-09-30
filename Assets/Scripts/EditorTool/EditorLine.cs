@@ -13,29 +13,44 @@ namespace SoldakModdingTool
 
         public string Name;
 
-        private string _key;
-        public string Key { get => _key; set { TryOverride(_key, value); _key = value; } }
+        public string DefaultKey;
+        public string DefaultValue;
 
-        private string _value;
-        public string Value { get => _value; set { TryOverride(_value, value); _value = value; } }
+        private string LastKey = "";
+
+        private string _key = "";
+        public string Key { get => _key; set { _key = value; TryOverride(); LastKey = _key; } }
+
+        private string _value = "";
+        public string Value { get => _value; set { _value = value; TryOverride(); } }
 
         public void Init(string name, string key, string value)
         {
             this.Name = name;
-            this._key = key;
-            this._value = value;
+            //this._key = key;
+            // this._value = value;
+
+            LastKey = key;
+
+            DefaultKey = key;
+            DefaultValue = value;
 
             DefualtKeyObj.text = key;
             DefualtValueObj.text = value;
         }
 
-        public void TryOverride(string before, string after)
+        public void TryOverride()
         {
-            if (string.IsNullOrEmpty(after) && !string.IsNullOrEmpty(before)) {
-                EditorGenerator.RemoveAKey(Key);
+            //Debug.Log(before + " " + after);
+            if (string.IsNullOrWhiteSpace(Key) && string.IsNullOrWhiteSpace(Value)) {
+                EditorGenerator.RemoveAKey(Name, LastKey);
             }
             else {
-                EditorGenerator.TryAddOverride(Name, Key, Value);
+                var keyused = string.IsNullOrWhiteSpace(Key) ? DefaultKey : Key;
+                var valueused = string.IsNullOrWhiteSpace(Value) ? DefaultValue : Value;
+
+                EditorGenerator.TryAddOverride(Name, keyused, valueused);
+                Debug.Log("trying to add override");
             }
         }
     }
