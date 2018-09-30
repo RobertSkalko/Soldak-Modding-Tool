@@ -75,9 +75,13 @@
     <Compile Include="Assets\Scripts\Monobehaviors\Inputs\InputCommandSaving.cs" />
     <Compile Include="Assets\Scripts\Monobehaviors\Inputs\ModNameSaving.cs" />
     <Compile Include="Assets\Scripts\Monobehaviors\Inputs\OutputPathSaving.cs" />
+    <Compile Include="Assets\Scripts\Monobehaviors\LoadSceneSelector.cs" />
+    <Compile Include="Assets\Scripts\Monobehaviors\Quit.cs" />
     <Compile Include="Assets\Scripts\Monobehaviors\ToolButtonsMono.cs" />
     <Compile Include="Assets\Scripts\Saving\Save.cs" />
     <Compile Include="Assets\Scripts\Saving\Saving.cs" />
+    <Compile Include="Assets\Scripts\SceneObject.cs" />
+    <Compile Include="Assets\Scripts\Scenes.cs" />
     <Compile Include="Assets\Scripts\SoldakObject.cs" />
     <Compile Include="Assets\Scripts\SoldakObjectGenerator.cs" />
     <Compile Include="Assets\Scripts\ToolButton.cs" />
