@@ -12,7 +12,7 @@ namespace SoldakModdingTool
 {
     public static class GetDerived
     {
-        public static List<SoldakObject> GetDerivedObjectsOf(this List<SoldakObject> objects, string baseType)
+        public static List<SoldakObject> GetDerivedFrom(this List<SoldakObject> objects, string baseType)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();

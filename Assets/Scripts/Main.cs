@@ -5,11 +5,10 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace SoldakModdingTool
 {
-    public class Main : MonoBehaviour
+    public static class Main
     {
         public static List<ToolButton> Buttons => GetAllButtons();
 
@@ -19,11 +18,6 @@ namespace SoldakModdingTool
             List<ToolButton> buttons = new List<ToolButton>();
             derivedTypes.ForEach(x => buttons.Add((ToolButton)Activator.CreateInstance(x)));
             return buttons;
-        }
-
-        public void Start()
-        {
-            Debug.Log("Starting Program");
         }
 
         public static string RemoveComments(string file)

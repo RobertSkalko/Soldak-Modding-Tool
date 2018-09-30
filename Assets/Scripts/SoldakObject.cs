@@ -122,6 +122,11 @@ namespace SoldakModdingTool
             return txt;
         }
 
+        public string GetTextRepresentation()
+        {
+            return GetTextRepresentation(Dict, ModdedName, Modifier);
+        }
+
         public string GetTextRepresentation(Dictionary<string, List<string>> OverridenValues, string modName, Modifiers modifier)
         {
             string text = "";

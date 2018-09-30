@@ -25,7 +25,7 @@ namespace SoldakModdingTool
                 Debug.Log("OutputPath Doesn't exist or not Inputed!");
                 return;
             }
-            string filename = Save.file.OutputPath + "/" + DateTime.Now.ToFileTime() + ".txt";
+            string filename = Save.file.OutputPath + "/" + DateTime.Now.ToFileTime() + ".gdb";
             File.WriteAllText(filename, file);
 
             Debug.Log("File saved to \"" + Save.file.OutputPath + "\"");

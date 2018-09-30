@@ -21,7 +21,7 @@ namespace SoldakModdingTool
 
             int number;
 
-            foreach (var obj in GetDerived.GetDerivedObjectsOf(FileManager.GetObjectsFromAllFilesInPath(Save.file.GamePath, true).ToList(), "BaseSkill")) {
+            foreach (var obj in GetDerived.GetDerivedFrom(FileManager.GetObjectsFromAllFilesInPath(Save.file.GamePath, true).ToList(), "BaseSkill")) {
                 number = -1;
 
                 for (var i = 0; i < min.Length; i++) {
