@@ -6,6 +6,13 @@ using UnityEngine;
 
 namespace SoldakModdingTool
 {
+    public class EditorData
+    {
+        public string NameContains;
+        public string AnyPartContains;
+        public string IsDerivedOf;
+    }
+
     public class Save
     {
         public static Save file = new Save();
@@ -13,6 +20,8 @@ namespace SoldakModdingTool
         private static string SaveFileName = "Save.txt";
         private static string SaveDataPath = Application.persistentDataPath + "/SavedData/" + SaveFileName;
         private static string SaveDataPathWithoutFileName = Application.persistentDataPath + "/SavedData/";
+
+        public EditorData EditorDatas = new EditorData();
 
         public string InputCommand;
         public string OutputPath = Application.persistentDataPath + "/OutPut";

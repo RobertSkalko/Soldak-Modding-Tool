@@ -12,6 +12,17 @@ namespace SoldakModdingTool
 {
     public static class GetDerived
     {
+        public static Dictionary<string, SoldakObject> GetDerivedFrom(this Dictionary<string, SoldakObject> objects, string baseType)
+        {
+            var derived = objects.Values.ToList().GetDerivedFrom(baseType);
+
+            var newDict = new Dictionary<string, SoldakObject>();
+
+            derived.ToList().ForEach(x => newDict.Add(x.Name, x));
+
+            return newDict;
+        }
+
         public static List<SoldakObject> GetDerivedFrom(this List<SoldakObject> objects, string baseType)
         {
             Stopwatch stopwatch = new Stopwatch();

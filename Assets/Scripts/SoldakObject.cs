@@ -37,6 +37,18 @@ namespace SoldakModdingTool
             return ModName + Name;
         }
 
+        public static SoldakObject GenerateOverrideObject(string name)
+        {
+            SoldakObject newobj = new SoldakObject
+            {
+                Name = name
+            };
+            newobj.ModdedName = Save.file.ModName + name;
+            newobj.Modifier = Modifiers.overrides;
+
+            return newobj;
+        }
+
         public SoldakObject(string text, string filepath)
         {
             this.FilePath = filepath;
@@ -46,6 +58,10 @@ namespace SoldakModdingTool
             text = RemoveBracketsAndAnythingBeforeThem(text);
 
             SetupDBInfo(text);
+        }
+
+        public SoldakObject()
+        {
         }
 
         private string GetBeforeBracket(string txt)

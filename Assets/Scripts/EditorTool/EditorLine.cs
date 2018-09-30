@@ -7,6 +7,8 @@ namespace SoldakModdingTool
 {
     public class EditorLine : MonoBehaviour
     {
+        public string Name;
+
         private string _key;
         public string Key { get => _key; set { _key = value; OnValueChanged.Invoke(); } }
 
@@ -22,8 +24,11 @@ namespace SoldakModdingTool
             OnValueChanged.AddListener(AddOverride);
         }
 
-        public static void AddOverride()
+        public void AddOverride()
         {
+            EditorGenerator.TryAddOverride(Name, Key, Value);
+
+            Debug.Log("test working");
         }
     }
 }
