@@ -8,6 +8,8 @@ namespace SoldakModdingTool
 {
     public class EditorGenerator : MonoBehaviour
     {
+        public GameObject LineObjectPrefab;
+
         private static Dictionary<string, SoldakObject> OverridenObjects;
         private static Dictionary<string, SoldakObject> AllObjects;
 
@@ -43,7 +45,7 @@ namespace SoldakModdingTool
         {
             if (OnFilterUpdated == null) {
                 OnFilterUpdated = new UnityEvent();
-                OnFilterUpdated.AddListener(OnUpdate);
+                OnFilterUpdated.AddListener(OnFilterUpdate);
             }
             if (OverridenObjects == null || OverridenObjects.Count == 0) {
                 OverridenObjects = new Dictionary<string, SoldakObject>();
@@ -52,26 +54,51 @@ namespace SoldakModdingTool
             if (AllObjects == null || AllObjects.Count == 0) {
                 AllObjects = new Dictionary<string, SoldakObject>();
 
-                FileManager.GetObjectsFromAllFilesInPath(Save.file.GamePath).ToList().Where(x => x.Modifier == Modifiers.none).ToList().ForEach(x => AllObjects.Add(x.Name, x));
+                FileManager.GetObjectsFromAllFilesInPath(Save.File.GamePath).ToList().Where(x => x.Modifier == Modifiers.none).ToList().ForEach(x => AllObjects.Add(x.Name, x));
             }
         }
 
-        public void OnUpdate()
+        private void OnFilterUpdate()
         {
             var objects = AllObjects;
 
-            if (!string.IsNullOrEmpty(Save.file.EditorDatas.NameContains)) {
-                objects = (Dictionary<string, SoldakObject>)AllObjects.Where(x => x.Value.Name.Contains(Save.file.EditorDatas.NameContains));
+            if (!string.IsNullOrEmpty(Save.File.EditorDatas.NameContains)) {
+                objects = objects.Where(x => x.Value.Name.Contains(Save.File.EditorDatas.NameContains)).ToDictionary(v => v.Key, v => v.Value);
+                Debug.Log("Objects after name filtering :" + objects.Count);
             }
-            if (!string.IsNullOrEmpty(Save.file.EditorDatas.AnyPartContains)) {
-                objects = (Dictionary<string, SoldakObject>)AllObjects.Where(x => x.Value.GetTextRepresentation().Contains(Save.file.EditorDatas.AnyPartContains));
+            if (!string.IsNullOrEmpty(Save.File.EditorDatas.AnyPartContains)) {
+                objects = objects.Where(x => x.Value.GetTextRepresentation().Contains(Save.File.EditorDatas.AnyPartContains)).ToDictionary(v => v.Key, v => v.Value);
+                Debug.Log("Objects after anypart filtering :" + objects.Count);
             }
-            if (!string.IsNullOrEmpty(Save.file.EditorDatas.IsDerivedOf)) {
-                objects = AllObjects.GetDerivedFrom(Save.file.EditorDatas.IsDerivedOf);
+            if (!string.IsNullOrEmpty(Save.File.EditorDatas.IsDerivedOf)) {
+                objects = objects.GetDerivedFrom(Save.File.EditorDatas.IsDerivedOf);
+                Debug.Log("Objects after derived filtering :" + objects.Count);
             }
 
-            if (objects.Count < 50) {
+            if (objects.Count < 25 && objects.Count > 0) {
                 Debug.Log("filtered correctly probably");
+
+                UpdateView(objects);
+            }
+            else {
+                Debug.Log("too many objects to display :" + objects.Count);
+            }
+        }
+
+        private void UpdateView(Dictionary<string, SoldakObject> dict)
+        {
+            foreach (Transform kid in this.transform) {
+                Destroy(kid.gameObject);
+            }
+
+            foreach (var item in dict) {
+                foreach (var line in item.Value.Dict) {
+                    var obj = Instantiate(LineObjectPrefab, transform);
+                    var comp = obj.GetComponent<EditorLine>();
+                    foreach (var str in line.Value) {
+                        comp.Init(item.Key, line.Key, str);
+                    }
+                }
             }
         }
     }

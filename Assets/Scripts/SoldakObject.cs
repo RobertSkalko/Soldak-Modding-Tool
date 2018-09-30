@@ -43,7 +43,7 @@ namespace SoldakModdingTool
             {
                 Name = name
             };
-            newobj.ModdedName = Save.file.ModName + name;
+            newobj.ModdedName = Save.File.ModName + name;
             newobj.Modifier = Modifiers.overrides;
 
             return newobj;

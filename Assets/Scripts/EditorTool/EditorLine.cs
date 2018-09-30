@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace SoldakModdingTool
 {
     public class EditorLine : MonoBehaviour
     {
+        public Text DefualtKeyObj;
+        public Text DefualtValueObj;
+
         public string Name;
 
         private string _key;
@@ -17,10 +21,20 @@ namespace SoldakModdingTool
 
         public UnityEvent OnValueChanged;
 
-        public void Start()
+        public void Init(string name, string key, string value)
         {
             OnValueChanged = new UnityEvent();
 
+            this.Name = name;
+            this.Key = key;
+            this.Value = value;
+
+            DefualtKeyObj.text = key;
+            DefualtValueObj.text = value;
+        }
+
+        public void Start()
+        {
             OnValueChanged.AddListener(AddOverride);
         }
 

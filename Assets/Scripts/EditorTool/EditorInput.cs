@@ -8,17 +8,17 @@ namespace SoldakModdingTool
     {
         public void SetIsDerivedOf(string s)
         {
-            Save.file.EditorDatas.IsDerivedOf = s;
+            Save.File.EditorDatas.IsDerivedOf = s;
         }
 
         public void SetNameContains(string s)
         {
-            Save.file.EditorDatas.NameContains = s;
+            Save.File.EditorDatas.NameContains = s;
         }
 
         public void SetAnyPartContains(string s)
         {
-            Save.file.EditorDatas.AnyPartContains = s;
+            Save.File.EditorDatas.AnyPartContains = s;
         }
 
         public void SetValue(string s)

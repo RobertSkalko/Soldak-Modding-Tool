@@ -11,7 +11,7 @@ namespace SoldakModdingTool
 
         protected override void Action()
         {
-            FileManager.GetObjectsFromAllFilesInPath(Save.file.GamePath);
+            FileManager.GetObjectsFromAllFilesInPath(Save.File.GamePath);
         }
     }
 }

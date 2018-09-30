@@ -7,7 +7,7 @@ namespace SoldakModdingTool
 {
     public class OutputPathSaving : MonoBehaviour
     {
-        public string Saved => Save.file.OutputPath;
+        public string Saved => Save.File.OutputPath;
 
         public bool Updated = false;
 

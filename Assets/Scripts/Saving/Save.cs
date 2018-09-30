@@ -8,14 +8,30 @@ namespace SoldakModdingTool
 {
     public class EditorData
     {
-        public string NameContains;
-        public string AnyPartContains;
-        public string IsDerivedOf;
+        private string nameContains = "";
+        private string anyPartContains = "";
+        private string isDerivedOf = "";
+
+        public string NameContains { get => nameContains; set { nameContains = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
+        public string AnyPartContains { get => anyPartContains; set { anyPartContains = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
+        public string IsDerivedOf { get => isDerivedOf; set { isDerivedOf = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
     }
 
     public class Save
     {
-        public static Save file = new Save();
+        private static Save file = null;
+
+        public static Save File {
+            get {
+                if (file == null) {
+                    TryLoadStateFromFile();
+                }
+
+                return file;
+            }
+
+            set => file = value;
+        }
 
         private static string SaveFileName = "Save.txt";
         private static string SaveDataPath = Application.persistentDataPath + "/SavedData/" + SaveFileName;
@@ -24,7 +40,7 @@ namespace SoldakModdingTool
         public EditorData EditorDatas = new EditorData();
 
         public string InputCommand;
-        public string OutputPath = Application.persistentDataPath + "/OutPut";
+        public string OutputPath;
         public string GamePath;
         public string FilesToEditPath;
         public string ModName;
@@ -43,8 +59,8 @@ namespace SoldakModdingTool
 
         public static void TryLoadStateFromFile()
         {
-            if (File.Exists(SaveDataPath)) {
-                file = JsonConvert.DeserializeObject<Save>(File.ReadAllText(SaveDataPath), deSettings) ?? new Save();
+            if (System.IO.File.Exists(SaveDataPath)) {
+                file = JsonConvert.DeserializeObject<Save>(System.IO.File.ReadAllText(SaveDataPath), deSettings) ?? new Save();
             }
             else {
                 file = new Save();
@@ -53,17 +69,17 @@ namespace SoldakModdingTool
 
         public static void SaveStateToFile()
         {
-            string json = JsonConvert.SerializeObject(file, Formatting.Indented, serSettings);
+            string json = JsonConvert.SerializeObject(File, Formatting.Indented, serSettings);
 
             if (!Directory.Exists(SaveDataPathWithoutFileName)) {
                 Directory.CreateDirectory(SaveDataPathWithoutFileName);
             }
 
-            if (!File.Exists(SaveDataPath)) {
-                File.Create(SaveFileName);
+            if (!System.IO.File.Exists(SaveDataPath)) {
+                System.IO.File.Create(SaveFileName);
             }
 
-            File.WriteAllText(SaveDataPath, json);
+            System.IO.File.WriteAllText(SaveDataPath, json);
         }
     }
 }

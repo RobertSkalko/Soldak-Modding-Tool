@@ -23,7 +23,7 @@ namespace SoldakModdingTool
         public static List<string> ToStringList(this List<SoldakObject> objects)
         {
             var list = new List<string>();
-            objects.ForEach(x => list.Add(x.GetTextRepresentation(x.Dict, Save.file.ModName, x.Modifier)));
+            objects.ForEach(x => list.Add(x.GetTextRepresentation(x.Dict, Save.File.ModName, x.Modifier)));
 
             return list;
         }

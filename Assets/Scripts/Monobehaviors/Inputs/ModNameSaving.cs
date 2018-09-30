@@ -7,7 +7,7 @@ namespace SoldakModdingTool
 {
     public class ModNameSaving : MonoBehaviour
     {
-        public string Saved => Save.file.ModName;
+        public string Saved => Save.File.ModName;
 
         public bool Updated = false;
 
