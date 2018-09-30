@@ -9,6 +9,7 @@ namespace SoldakModdingTool
     public class EditorGenerator : MonoBehaviour
     {
         public GameObject LineObjectPrefab;
+        public GameObject EditorObjectPrefab;
 
         private static Dictionary<string, SoldakObject> OverridenObjects;
         private static Dictionary<string, SoldakObject> AllObjects;
@@ -104,13 +105,8 @@ namespace SoldakModdingTool
             }
 
             foreach (var item in dict) {
-                foreach (var line in item.Value.Dict) {
-                    var obj = Instantiate(LineObjectPrefab, transform);
-                    var comp = obj.GetComponent<EditorLine>();
-                    foreach (var str in line.Value) {
-                        comp.Init(item.Key, line.Key, str);
-                    }
-                }
+                var obj = Instantiate(EditorObjectPrefab, transform);
+                obj.GetComponent<EditorObject>().Init(item.Key, item.Value.Dict, LineObjectPrefab);
             }
         }
     }

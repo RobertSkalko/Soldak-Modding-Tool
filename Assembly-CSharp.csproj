@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\EditorTool\EditorGenerator.cs" />
     <Compile Include="Assets\Scripts\EditorTool\EditorInput.cs" />
     <Compile Include="Assets\Scripts\EditorTool\EditorLine.cs" />
+    <Compile Include="Assets\Scripts\EditorTool\EditorObject.cs" />
     <Compile Include="Assets\Scripts\Extensions.cs" />
     <Compile Include="Assets\Scripts\FileManager.cs" />
     <Compile Include="Assets\Scripts\GetDerived.cs" />
