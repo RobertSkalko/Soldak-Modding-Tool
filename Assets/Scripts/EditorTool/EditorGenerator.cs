@@ -71,6 +71,10 @@ namespace SoldakModdingTool
         {
             var objects = AllObjects;
 
+            if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.IsDerivedOf)) {
+                objects = AllObjects.GetDerivedFrom(Save.Instance.EditorDatas.IsDerivedOf);
+                Debug.Log("Objects after derived filtering :" + objects.Count);
+            }
             if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.NameContains)) {
                 objects = objects.Where(x => x.Value.Name.Contains(Save.Instance.EditorDatas.NameContains)).ToDictionary(v => v.Key, v => v.Value);
                 Debug.Log("Objects after name filtering :" + objects.Count);
@@ -78,10 +82,6 @@ namespace SoldakModdingTool
             if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.AnyPartContains)) {
                 objects = objects.Where(x => x.Value.GetTextRepresentation().Contains(Save.Instance.EditorDatas.AnyPartContains)).ToDictionary(v => v.Key, v => v.Value);
                 Debug.Log("Objects after anypart filtering :" + objects.Count);
-            }
-            if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.IsDerivedOf)) {
-                objects = objects.GetDerivedFrom(Save.Instance.EditorDatas.IsDerivedOf);
-                Debug.Log("Objects after derived filtering :" + objects.Count);
             }
 
             int MaxObjectCount = 50;
