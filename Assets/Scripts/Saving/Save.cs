@@ -8,13 +8,13 @@ namespace SoldakModdingTool
 {
     public class EditorData
     {
-        private string nameContains = "";
-        private string anyPartContains = "";
-        private string isDerivedOf = "";
+        [JsonRequired] private string nameContains = "";
+        [JsonRequired] private string anyPartContains = "";
+        [JsonRequired] private string isDerivedOf = "";
 
-        public string NameContains { get => nameContains; set { nameContains = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
-        public string AnyPartContains { get => anyPartContains; set { anyPartContains = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
-        public string IsDerivedOf { get => isDerivedOf; set { isDerivedOf = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
+        [JsonIgnore] public string NameContains { get => nameContains; set { nameContains = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
+        [JsonIgnore] public string AnyPartContains { get => anyPartContains; set { anyPartContains = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
+        [JsonIgnore] public string IsDerivedOf { get => isDerivedOf; set { isDerivedOf = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
     }
 
     public class Save
@@ -62,7 +62,7 @@ namespace SoldakModdingTool
             string savepath = SaveDataPath;
 
             if (File.Exists(savepath)) {
-                instance = JsonConvert.DeserializeObject<Save>(File.ReadAllText(savepath), deSettings) ?? new Save();
+                instance = (JsonConvert.DeserializeObject<Save>(File.ReadAllText(savepath), deSettings) != null) ? JsonConvert.DeserializeObject<Save>(File.ReadAllText(savepath), deSettings) : new Save();
             }
             else {
                 instance = new Save();
