@@ -13,7 +13,7 @@ namespace SoldakModdingTool
         [JsonRequired] private string isDerivedOf = "";
 
         [JsonIgnore] public string NameContains { get => nameContains; set { nameContains = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
-        [JsonIgnore] public string AnyPartContains { get => anyPartContains; set { anyPartContains = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
+        [JsonIgnore] public string NameDoesntHave { get => anyPartContains; set { anyPartContains = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
         [JsonIgnore] public string IsDerivedOf { get => isDerivedOf; set { isDerivedOf = value; EditorGenerator.OnFilterUpdated?.Invoke(); } }
     }
 

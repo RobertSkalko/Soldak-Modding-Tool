@@ -16,9 +16,9 @@ namespace SoldakModdingTool
             Save.Instance.EditorDatas.NameContains = s;
         }
 
-        public void SetAnyPartContains(string s)
+        public void SetNameDoesntHave(string s)
         {
-            Save.Instance.EditorDatas.AnyPartContains = s;
+            Save.Instance.EditorDatas.NameDoesntHave = s;
         }
 
         public void SetValue(string s)

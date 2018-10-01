@@ -1726,7 +1726,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 780778143}
-        m_MethodName: SetAnyPartContains
+        m_MethodName: SetNameDoesntHave
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2791,7 +2791,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 282255683}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3817,7 +3817,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Any Part Contains:'
+  m_Text: 'Name Doesn''t Have:'
 --- !u!222 &1406068454
 CanvasRenderer:
   m_ObjectHideFlags: 0

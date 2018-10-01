@@ -91,8 +91,8 @@ namespace SoldakModdingTool
                 objects = objects.Where(x => x.Value.Name.Contains(Save.Instance.EditorDatas.NameContains)).ToDictionary(v => v.Key, v => v.Value);
                 //Debug.Log("Objects after name filtering :" + objects.Count);
             }
-            if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.AnyPartContains)) {
-                objects = objects.Where(x => x.Value.GetTextRepresentation().Contains(Save.Instance.EditorDatas.AnyPartContains)).ToDictionary(v => v.Key, v => v.Value);
+            if (!string.IsNullOrEmpty(Save.Instance.EditorDatas.NameDoesntHave)) {
+                objects = objects.Where(x => !x.Value.Name.Contains(Save.Instance.EditorDatas.NameDoesntHave)).ToDictionary(v => v.Key, v => v.Value);
                 //Debug.Log("Objects after anypart filtering :" + objects.Count);
             }
 
