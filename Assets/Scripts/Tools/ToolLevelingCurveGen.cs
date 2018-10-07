@@ -17,7 +17,7 @@ namespace SoldakModdingTool
             { 25,1.12F },
             { 50,1.04F },
             { 75,1.06F },
-            { 90,1.09F },
+            { 90,1F },
         };
 
         private int ExpReq = 7500;
@@ -37,7 +37,7 @@ namespace SoldakModdingTool
             soldakobj.Dict.Add("BaseXpNeededEachLevel", new List<string>() { ExpReq + "" });
 
             for (var i = 1; i <= maxlvl; i++) {
-                if (LevelAndCurveDict.ContainsKey(i) && LevelAndCurveDict[i] >= currentlvl) {
+                if (LevelAndCurveDict.ContainsKey(i)) {
                     currentlvl = i;
                 }
                 if (i > 1) {
