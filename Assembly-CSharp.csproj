@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Tools\ToolDuplicateChecker.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolGetAllDerived.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolGetAnyObjectThatContains.cs" />
+    <Compile Include="Assets\Scripts\Tools\ToolLevelingCurveGen.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolOnHitOrKillReduce.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolOverrideNameSetter.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolSpellsUseWeaponDmg.cs" />
